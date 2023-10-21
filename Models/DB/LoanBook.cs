@@ -1,0 +1,31 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace AnalisisProyecto.Models.DB;
+
+public partial class LoanBook
+{
+    public int Id { get; set; }
+
+    public int? IdLoan { get; set; }
+
+    public int? IdCopy { get; set; }
+
+    public int? IdLibraryUser { get; set; }
+
+    public string? Title { get; set; }
+
+    public decimal? PhotocopyCharge { get; set; }
+
+    public string? SubLibrary { get; set; }
+
+    public string? Observation { get; set; }
+
+    public DateTime? LimitFines { get; set; }
+
+    public virtual Copy? IdCopyNavigation { get; set; }
+
+    public virtual LibraryUser? IdLibraryUserNavigation { get; set; }
+
+    public virtual Loan? IdLoanNavigation { get; set; }
+}
