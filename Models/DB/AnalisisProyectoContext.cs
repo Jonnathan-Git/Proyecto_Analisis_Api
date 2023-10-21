@@ -855,6 +855,7 @@ public partial class AnalisisProyectoContext : DbContext {
                 .IsUnicode(false)
                 .HasColumnName("phone");
             entity.Property(e => e.RoleId).HasColumnName("role_id");
+            entity.Property(e => e.Deleted).HasColumnName("deleted");
             entity.Property(e => e.UserId)
                 .HasMaxLength(255)
                 .IsUnicode(false)

@@ -25,6 +25,8 @@ public partial class Userr
 
     public DateTime? CreationDate { get; set; }
 
+    public bool? Deleted { get; set; }
+
     public virtual ICollection<LibraryUser> LibraryUsers { get; set; } = new List<LibraryUser>();
 
     public virtual ICollection<LoanBookLog> LoanBookLogs { get; set; } = new List<LoanBookLog>();

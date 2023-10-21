@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\JONNA\\OneDrive\\Escritorio\\Visual-Java-U\\AnalisisProyecto\\AnalisisProyecto.csproj": {}
+    "D:\\Personal\\Docs\\UCR\\2023\\2 Semestre\\Analisis\\Proyecto_Analisis_Api\\AnalisisProyecto.csproj": {}
   },
   "projects": {
-    "C:\\Users\\JONNA\\OneDrive\\Escritorio\\Visual-Java-U\\AnalisisProyecto\\AnalisisProyecto.csproj": {
+    "D:\\Personal\\Docs\\UCR\\2023\\2 Semestre\\Analisis\\Proyecto_Analisis_Api\\AnalisisProyecto.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\JONNA\\OneDrive\\Escritorio\\Visual-Java-U\\AnalisisProyecto\\AnalisisProyecto.csproj",
+        "projectUniqueName": "D:\\Personal\\Docs\\UCR\\2023\\2 Semestre\\Analisis\\Proyecto_Analisis_Api\\AnalisisProyecto.csproj",
         "projectName": "AnalisisProyecto",
-        "projectPath": "C:\\Users\\JONNA\\OneDrive\\Escritorio\\Visual-Java-U\\AnalisisProyecto\\AnalisisProyecto.csproj",
-        "packagesPath": "C:\\Users\\JONNA\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\JONNA\\OneDrive\\Escritorio\\Visual-Java-U\\AnalisisProyecto\\obj\\",
+        "projectPath": "D:\\Personal\\Docs\\UCR\\2023\\2 Semestre\\Analisis\\Proyecto_Analisis_Api\\AnalisisProyecto.csproj",
+        "packagesPath": "C:\\Users\\jmena\\.nuget\\packages\\",
+        "outputPath": "D:\\Personal\\Docs\\UCR\\2023\\2 Semestre\\Analisis\\Proyecto_Analisis_Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\JONNA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\jmena\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "Microsoft.AspNet.WebApi.Cors": {
+              "target": "Package",
+              "version": "[5.2.9, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
               "version": "[7.0.12, )"
@@ -82,7 +86,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
         }
       }
     }
