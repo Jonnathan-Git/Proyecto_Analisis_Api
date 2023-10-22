@@ -11853,19 +11853,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\JONNA\\.nuget\\packages\\": {}
+    "C:\\Users\\bayro\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\JONNA\\OneDrive\\Escritorio\\Visual-Java-U\\AnalisisProyecto\\AnalisisProyecto.csproj",
+      "projectUniqueName": "C:\\Users\\bayro\\Documents\\GitHub\\Proyecto_Analisis_Api\\AnalisisProyecto.csproj",
       "projectName": "AnalisisProyecto",
-      "projectPath": "C:\\Users\\JONNA\\OneDrive\\Escritorio\\Visual-Java-U\\AnalisisProyecto\\AnalisisProyecto.csproj",
-      "packagesPath": "C:\\Users\\JONNA\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\JONNA\\OneDrive\\Escritorio\\Visual-Java-U\\AnalisisProyecto\\obj\\",
+      "projectPath": "C:\\Users\\bayro\\Documents\\GitHub\\Proyecto_Analisis_Api\\AnalisisProyecto.csproj",
+      "packagesPath": "C:\\Users\\bayro\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\bayro\\Documents\\GitHub\\Proyecto_Analisis_Api\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\JONNA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\bayro\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -11873,6 +11873,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\sdk\\7.0.304\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -11933,7 +11934,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.304\\RuntimeIdentifierGraph.json"
       }
     }
   }
