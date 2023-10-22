@@ -230,17 +230,17 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.ToTable("furniture");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Furniture1)
+            entity.Property(e => e.furniture)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("furniture");
-            entity.Property(e => e.IdStudyRoom).HasColumnName("id_study_room");
+            entity.Property(e => e.id_study_room).HasColumnName("id_study_room");
             entity.Property(e => e.Active).HasColumnName("active");
             entity.Property(e => e.Capacity).HasColumnName("capacity");
 
 
             entity.HasOne(d => d.IdStudyRoomNavigation).WithMany(p => p.Furnitures)
-                .HasForeignKey(d => d.IdStudyRoom)
+                .HasForeignKey(d => d.id_study_room)
                 .HasConstraintName("FK__furniture__furni__59063A47");
         });
 
