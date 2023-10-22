@@ -12009,19 +12009,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jmena\\.nuget\\packages\\": {}
+    "C:\\Users\\JONNA\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Personal\\Docs\\UCR\\2023\\2 Semestre\\Analisis\\Proyecto_Analisis_Api\\AnalisisProyecto.csproj",
+      "projectUniqueName": "C:\\Users\\JONNA\\OneDrive\\Escritorio\\Visual-Java-U\\CLONESGIT\\AnalisisProyecto\\AnalisisProyecto.csproj",
       "projectName": "AnalisisProyecto",
-      "projectPath": "D:\\Personal\\Docs\\UCR\\2023\\2 Semestre\\Analisis\\Proyecto_Analisis_Api\\AnalisisProyecto.csproj",
-      "packagesPath": "C:\\Users\\jmena\\.nuget\\packages\\",
-      "outputPath": "D:\\Personal\\Docs\\UCR\\2023\\2 Semestre\\Analisis\\Proyecto_Analisis_Api\\obj\\",
+      "projectPath": "C:\\Users\\JONNA\\OneDrive\\Escritorio\\Visual-Java-U\\CLONESGIT\\AnalisisProyecto\\AnalisisProyecto.csproj",
+      "packagesPath": "C:\\Users\\JONNA\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\JONNA\\OneDrive\\Escritorio\\Visual-Java-U\\CLONESGIT\\AnalisisProyecto\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\jmena\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\JONNA\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -12093,7 +12093,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   },
