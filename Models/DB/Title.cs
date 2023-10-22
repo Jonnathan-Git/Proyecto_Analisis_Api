@@ -33,5 +33,7 @@ public partial class Title
 
     public string? GeneralSubjectSubdivision { get; set; }
 
+    public bool? Active { get; set; }
+
     public virtual ICollection<Copy> Copies { get; set; } = new List<Copy>();
 }

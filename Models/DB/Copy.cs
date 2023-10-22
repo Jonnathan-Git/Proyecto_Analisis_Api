@@ -25,6 +25,8 @@ public partial class Copy
 
     public string? Notes { get; set; }
 
+    public bool? Active { get; set; }
+
     public virtual Title? IdTitlesNavigation { get; set; }
 
     public virtual ICollection<LoanBook> LoanBooks { get; set; } = new List<LoanBook>();
