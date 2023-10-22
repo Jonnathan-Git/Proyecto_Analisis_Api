@@ -34,7 +34,7 @@ namespace AnalisisProyecto.Controllers
 
         // GET: api/StudyRooms/5
         [HttpGet]
-        [Route("getById/{id}")]
+        [Route("getStudyRoom/{id}")]
         public async Task<ActionResult<StudyRoom>> GetStudyRoom(int id)
         {
           if (_context.StudyRooms == null)
@@ -53,7 +53,8 @@ namespace AnalisisProyecto.Controllers
 
         // PUT: api/StudyRooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
+        [HttpPut]
+        [Route("updateStudyRoom/{id}")]
         public async Task<IActionResult> PutStudyRoom(int id, StudyRoom studyRoom)
         {
             if (id != studyRoom.Id)
@@ -85,8 +86,10 @@ namespace AnalisisProyecto.Controllers
         // POST: api/StudyRooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        [Route("createStudyRoom")]
         public async Task<ActionResult<StudyRoom>> PostStudyRoom(StudyRoom studyRoom)
         {
+            Console.WriteLine("llega");
           if (_context.StudyRooms == null)
           {
               return Problem("Entity set 'AnalisisProyectoContext.StudyRooms'  is null.");
@@ -98,7 +101,8 @@ namespace AnalisisProyecto.Controllers
         }
 
         // DELETE: api/StudyRooms/5
-        [HttpDelete("{id}")]
+        [HttpDelete()]
+        [Route("deleteStudyRoom/{id}")]
         public async Task<IActionResult> DeleteStudyRoom(int id)
         {
             if (_context.StudyRooms == null)
@@ -106,12 +110,13 @@ namespace AnalisisProyecto.Controllers
                 return NotFound();
             }
             var studyRoom = await _context.StudyRooms.FindAsync(id);
+            studyRoom.Active = false;
             if (studyRoom == null)
             {
                 return NotFound();
             }
 
-            _context.StudyRooms.Remove(studyRoom);
+          //  _context.StudyRooms.Remove(studyRoom);
             await _context.SaveChangesAsync();
 
             return NoContent();

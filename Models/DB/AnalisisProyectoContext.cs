@@ -235,6 +235,9 @@ public partial class AnalisisProyectoContext : DbContext {
                 .IsUnicode(false)
                 .HasColumnName("furniture");
             entity.Property(e => e.IdStudyRoom).HasColumnName("id_study_room");
+            entity.Property(e => e.Active).HasColumnName("active");
+            entity.Property(e => e.Capacity).HasColumnName("capacity");
+
 
             entity.HasOne(d => d.IdStudyRoomNavigation).WithMany(p => p.Furnitures)
                 .HasForeignKey(d => d.IdStudyRoom)
@@ -535,6 +538,7 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.HasOne(d => d.StudyRoom).WithMany(p => p.LoanStudyRooms)
                 .HasForeignKey(d => d.StudyRoomId)
                 .HasConstraintName("FK__loan_stud__study__5629CD9C");
+            entity.Property(e => e.Active).HasColumnName("active");
         });
 
         modelBuilder.Entity<LoanVehicle>(entity => {
@@ -593,6 +597,7 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.LoanVehicles)
                 .HasForeignKey(d => d.IdUser)
                 .HasConstraintName("FK__loan_vehi__id_us__7F2BE32F");
+            entity.Property(e => e.Active).HasColumnName("active");
         });
 
         modelBuilder.Entity<Privilege>(entity => {
@@ -745,6 +750,7 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("name");
+            entity.Property(e => e.Active).HasColumnName("active");
         });
 
         modelBuilder.Entity<StudyRoomSchedule>(entity => {
@@ -764,6 +770,8 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.HasOne(d => d.IdStudyRoomNavigation).WithMany(p => p.StudyRoomSchedules)
                 .HasForeignKey(d => d.IdStudyRoom)
                 .HasConstraintName("FK__study_roo__id_st__5BE2A6F2");
+            entity.Property(e => e.Active).HasColumnName("active");
+
         });
 
         modelBuilder.Entity<Title>(entity => {

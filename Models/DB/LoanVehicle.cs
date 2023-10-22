@@ -37,6 +37,7 @@ public partial class LoanVehicle
 
     public string? AssignedVehicle { get; set; }
 
+    public bool Active { get; set; }
     public virtual Loan? IdLoanNavigation { get; set; }
 
     public virtual Userr? IdUserNavigation { get; set; }
