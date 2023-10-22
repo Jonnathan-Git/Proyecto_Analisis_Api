@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AnalisisProyecto.Models.DB;
 
-public partial class Userr
-{
+public partial class Userr {
     public int Id { get; set; }
 
     public string? UserId { get; set; }
@@ -38,7 +38,7 @@ public partial class Userr
     public virtual ICollection<LoanVehicle> LoanVehicles { get; set; } = new List<LoanVehicle>();
 
     public virtual ICollection<LoanClassroom> LoanClassrooms { get; set; } = new List<LoanClassroom>();
-  
 
+    //[JsonIgnore]
     public virtual Role? Role { get; set; }
 }

@@ -591,3 +591,4 @@ D:\Personal\Docs\UCR\2023\2 Semestre\Analisis\Proyecto_Analisis_Api\bin\Debug\ne
 D:\Personal\Docs\UCR\2023\2 Semestre\Analisis\Proyecto_Analisis_Api\bin\Debug\net6.0\System.Web.Http.dll
 D:\Personal\Docs\UCR\2023\2 Semestre\Analisis\Proyecto_Analisis_Api\bin\Debug\net6.0\System.Web.Http.Cors.dll
 D:\Personal\Docs\UCR\2023\2 Semestre\Analisis\Proyecto_Analisis_Api\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll
+D:\Personal\Docs\UCR\2023\2 Semestre\Analisis\Proyecto_Analisis_Api\bin\Debug\net6.0\BCrypt.Net-Next.dll

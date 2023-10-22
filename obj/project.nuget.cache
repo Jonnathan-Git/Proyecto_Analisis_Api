@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "jVaiYKI0E9/vd5jFJnB0zxC8/eY4sc/YqTr6esxg/kTHVrwwWzsVm/tXU03bBxSuzJYOzXs+Ulrm4M91IBEmrg==",
+  "dgSpecHash": "GLhjoCOfoBDwulGllLVv9VGtMYPBbBNEIk4WmfOy4TgAy5tpGjgL1g/8q0wIXI2DXFpa8j4j9WX6hIt7NXUosw==",
   "success": true,
   "projectFilePath": "D:\\Personal\\Docs\\UCR\\2023\\2 Semestre\\Analisis\\Proyecto_Analisis_Api\\AnalisisProyecto.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jmena\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\jmena\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",
+    "C:\\Users\\jmena\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\jmena\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\jmena\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\jmena\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

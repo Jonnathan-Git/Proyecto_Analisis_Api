@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnalisisProyecto.Models.DB;
+using System.Text.Json.Serialization;
+using System.Text.Json;
+using Microsoft.Extensions.Options;
+using BCrypt.Net;
 
 namespace AnalisisProyecto.Controllers {
     [Route("api/[controller]")]
@@ -17,16 +21,42 @@ namespace AnalisisProyecto.Controllers {
             _context = context;
         }
 
+        //Metodo de obtener todos los usuarios se utiliza DTO para obtener el nombre del rol
+        //Ya que el rol es una llave foranea y no se puede obtener directamente
+        //Si no se encicla la referencia y se cae el programa
         // GET: api/Userrs
         [HttpGet]
         [Route("getAll")]
         public async Task<ActionResult<IEnumerable<Userr>>> GetUserrs() {
-            if (_context.Userrs == null) {
+            var userrs = await _context.Userrs.Include(u => u.Role).ToListAsync();
+
+            if (userrs == null) {
                 return NotFound();
             }
-            return await _context.Userrs.ToListAsync();
+
+            //var jsonOptions = new JsonSerializerOptions {
+            //    ReferenceHandler = ReferenceHandler.Preserve,
+            //};
+
+            var userDtos = userrs.Select(u => new UserDto {
+                Id = u.Id,
+                UserId = u.UserId != null ? u.UserId : string.Empty,
+                Name = u.Name != null ? u.Name : string.Empty,
+                LastName = u.LastName != null ? u.LastName : string.Empty,
+                Category = u.Category != null ? u.Category : string.Empty,
+                Role = u.Role != null ? u.Role.Name != null ? u.Role.Name : string.Empty : string.Empty,
+                Phone = u.Phone != null ? u.Phone : string.Empty,
+                Career = u.Career != null ? u.Career : string.Empty,
+                Deleted = u.Deleted.GetValueOrDefault(false) ? 1 : 0,
+                CreationDate = u.CreationDate.GetValueOrDefault(DateTime.Now)
+            }).ToList();
+
+            return Ok(userDtos);//Content(JsonSerializer.Serialize(userrs, jsonOptions), "application/json");
         }
 
+        //Metodo de obtener un usuario por id se utiliza DTO para obtener el nombre del rol
+        //Ya que el rol es una llave foranea y no se puede obtener directamente
+        //Si no se encicla la referencia y se cae el programa
         // GET: api/Userrs/5
         [HttpGet]
         [Route("getUser/{id}")]
@@ -34,37 +64,77 @@ namespace AnalisisProyecto.Controllers {
             if (_context.Userrs == null) {
                 return NotFound();
             }
-            var userr = await _context.Userrs.FindAsync(id);
+            //var userr = await _context.Userrs.FindAsync(id);
+            //var userr = await _context.Userrs.Include(u => u.Role).FirstOrDefaultAsync(u => u.Id == id);
+            var userDto = await _context.Userrs.Where(u => u.Id == id).Select(u => new UserDto {
+                Id = u.Id,
+                UserId = u.UserId != null ? u.UserId : string.Empty,
+                Name = u.Name != null ? u.Name : string.Empty,
+                LastName = u.LastName != null ? u.LastName : string.Empty,
+                Category = u.Category != null ? u.Category : string.Empty,
+                Role = u.Role != null ? u.Role.Name != null ? u.Role.Name : string.Empty : string.Empty,
+                Phone = u.Phone != null ? u.Phone : string.Empty,
+                Career = u.Career != null ? u.Career : string.Empty,
+                Deleted = u.Deleted.GetValueOrDefault(false) ? 1 : 0,
+                CreationDate = u.CreationDate.GetValueOrDefault(DateTime.Now)
+            }).FirstOrDefaultAsync();
 
-            if (userr == null) {
+
+
+            if (userDto == null) {
                 return NotFound();
             }
 
-            return userr;
+            return Ok(userDto);
         }
 
+        //Metodo para actualizar el cliente, se busca por el id el cliente que se quiere actualizar
+        //Para que asi no se pierda la fecha de creacion
         // PUT: api/Userrs/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
-        [Route("updateUser/{id}")]
-        public async Task<IActionResult> PutUserr(int id, Userr userr) {
-            if (id != userr.Id) {
+        [Route("updateUser")]
+        public async Task<IActionResult> PutUserr(Userr userr) {
+
+            if (userr == null || string.IsNullOrEmpty(userr.Password)) {
                 return BadRequest();
             }
 
-            _context.Entry(userr).State = EntityState.Modified;
+            // Carga la entidad original desde la base de datos
+            var existingUserr = await _context.Userrs.FindAsync(userr.Id);
+
+            if (existingUserr == null) {
+                return NotFound();
+            }
+
+            // Copia los valores actualizados a la entidad existente
+            existingUserr.UserId = userr.UserId;
+            existingUserr.Name = userr.Name;
+            existingUserr.LastName = userr.LastName;
+            existingUserr.RoleId = userr.RoleId;
+            existingUserr.Phone = userr.Phone;
+            existingUserr.Career = userr.Career;
+
+            if (!string.IsNullOrEmpty(userr.Password)) {
+                existingUserr.Password = BCrypt.Net.BCrypt.HashPassword(userr.Password);
+            }
+
+            // Establece la fecha de creación original
+            userr.CreationDate = existingUserr.CreationDate;
+
+            // Marca la entidad existente como modificada
+            _context.Entry(existingUserr).State = EntityState.Modified;
 
             try {
                 await _context.SaveChangesAsync();
             } catch (DbUpdateConcurrencyException) {
-                if (!UserrExists(id)) {
+                if (!UserrExists(userr.Id)) {
                     return NotFound();
                 } else {
                     throw;
                 }
             }
 
-            return Ok(id);
+            return Ok(userr.Id);
         }
 
         // POST: api/Userrs
@@ -72,9 +142,22 @@ namespace AnalisisProyecto.Controllers {
         [HttpPost]
         [Route("createUser")]
         public async Task<ActionResult<Userr>> PostUserr(Userr userr) {
-            if (_context.Userrs == null) {
-                return Problem("Entity set 'AnalisisProyectoContext.Userrs'  is null.");
+
+            Console.WriteLine(userr.Password);
+
+            if (userr.Password == null) {
+                return BadRequest();
             }
+
+            var userr2 = await _context.Userrs.FirstOrDefaultAsync(u => u.UserId == userr.UserId);
+            if (userr2 != null) {
+                return BadRequest();
+            }
+
+
+            userr.CreationDate = DateTime.Now;
+            userr.Password = BCrypt.Net.BCrypt.HashPassword(userr.Password);
+            userr.Deleted = false;
             _context.Userrs.Add(userr);
             await _context.SaveChangesAsync();
 
