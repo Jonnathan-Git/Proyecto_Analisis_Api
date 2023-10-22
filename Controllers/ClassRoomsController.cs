@@ -22,7 +22,6 @@ namespace AnalisisProyecto.Controllers
 
         // GET: api/ClassRooms
         [HttpGet]
-        [Route("getAll")]
         public async Task<ActionResult<IEnumerable<Classroom>>> GetClassRooms()
         {
           if (_context.Classrooms == null)
@@ -84,7 +83,6 @@ namespace AnalisisProyecto.Controllers
         // POST: api/ClassRooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Route("createClassRoom")]
         public async Task<ActionResult<Classroom>> PostClassroom(Classroom classroom)
         {
           if (_context.Classrooms == null)
