@@ -89,12 +89,13 @@ namespace AnalisisProyecto.Controllers
                 return NotFound();
             }
             var title = await _context.Titles.FindAsync(id);
+            title.Active = false;
             if (title == null)
             {
                 return NotFound();
             }
 
-            _context.Titles.Remove(title);
+            _context.Entry(title).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
             return NoContent();

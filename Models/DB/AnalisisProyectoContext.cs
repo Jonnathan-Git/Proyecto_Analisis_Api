@@ -218,7 +218,10 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("sub_library");
-
+            entity.Property(e => e.Active)
+                .HasColumnType("bit")
+                .IsUnicode(false)
+                .HasColumnName("active");
             entity.HasOne(d => d.IdTitlesNavigation).WithMany(p => p.Copies)
                 .HasForeignKey(d => d.IdTitles)
                 .HasConstraintName("FK__copy__id_titles__628FA481");
@@ -819,6 +822,10 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("title");
+            entity.Property(e => e.Active)
+                .HasColumnType("bit")
+                .IsUnicode(false)
+                .HasColumnName("active");
         });
 
         modelBuilder.Entity<Userr>(entity => {
