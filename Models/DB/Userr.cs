@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AnalisisProyecto.Models.DB;
 
@@ -27,6 +28,7 @@ public partial class Userr
 
     public bool? Deleted { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<LibraryUser> LibraryUsers { get; set; } = new List<LibraryUser>();
 
     public virtual ICollection<LoanBookLog> LoanBookLogs { get; set; } = new List<LoanBookLog>();

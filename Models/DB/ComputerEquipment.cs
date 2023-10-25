@@ -23,6 +23,7 @@ public partial class ComputerEquipment
 
     public string? Include { get; set; }
 
+    public Boolean? Active { get; set; } 
     public DateTime? LastModifications { get; set; }
 
     public string? SerialNumber { get; set; }

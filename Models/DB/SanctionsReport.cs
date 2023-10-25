@@ -13,6 +13,8 @@ public partial class SanctionsReport
 
     public int? IdReturnComputerEquipment { get; set; }
 
+    public Boolean? Active { get; set; }
+
     public virtual LibraryUser? IdLibraryUserNavigation { get; set; }
 
     public virtual ReturnComputerEquipment? IdReturnComputerEquipmentNavigation { get; set; }
