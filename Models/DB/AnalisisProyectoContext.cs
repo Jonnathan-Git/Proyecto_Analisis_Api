@@ -180,6 +180,8 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("state");
+            entity.Property(e => e.Active)
+                .HasColumnName("active");
         });
 
         modelBuilder.Entity<Copy>(entity => {
@@ -722,6 +724,7 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.Property(e => e.IdLibraryUser).HasColumnName("id_library_user");
             entity.Property(e => e.IdReturnComputerEquipment).HasColumnName("id_return_computer_equipment");
             entity.Property(e => e.IdSanctionComputerEquipment).HasColumnName("id_sanction_computer_equipment");
+            entity.Property(e => e.Active).HasColumnName("active");
 
             entity.HasOne(d => d.IdLibraryUserNavigation).WithMany(p => p.SanctionsReports)
                 .HasForeignKey(d => d.IdLibraryUser)
