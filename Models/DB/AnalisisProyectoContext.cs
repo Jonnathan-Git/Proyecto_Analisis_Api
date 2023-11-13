@@ -100,7 +100,7 @@ public partial class AnalisisProyectoContext : DbContext {
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Description)
-                .HasMaxLength(10)
+                .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("description");
             entity.Property(e => e.Numeration)
