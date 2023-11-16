@@ -29,6 +29,8 @@ namespace AnalisisProyecto.Controllers
           {
               return NotFound();
           }
+            await _context.StudyRoomSchedules.ToListAsync();
+
             return await _context.StudyRoomSchedules.ToListAsync();
         }
 
@@ -63,7 +65,7 @@ namespace AnalisisProyecto.Controllers
             }
 
             _context.Entry(studyRoomSchedule).State = EntityState.Modified;
-
+            Console.WriteLine("Mensaje de traza=>__"+ studyRoomSchedule.EndHour+"__");
             try
             {
                 await _context.SaveChangesAsync();
@@ -109,12 +111,13 @@ namespace AnalisisProyecto.Controllers
                 return NotFound();
             }
             var studyRoomSchedule = await _context.StudyRoomSchedules.FindAsync(id);
+            studyRoomSchedule.Active = false;
             if (studyRoomSchedule == null)
             {
                 return NotFound();
             }
 
-            _context.StudyRoomSchedules.Remove(studyRoomSchedule);
+           // _context.StudyRoomSchedules.Remove(studyRoomSchedule);
             await _context.SaveChangesAsync();
 
             return NoContent();

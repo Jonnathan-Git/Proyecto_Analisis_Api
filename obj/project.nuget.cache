@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "JmsE2vRFlW77FEjrNCzi+Uet4r1vM95+m7DrZ0USCPj9A4L36niSiD/aFj0Q7J5dvaKtz3sqKDU9HdFTEao+IA==",
+  "dgSpecHash": "o5RHzMN0ckgBFxedjE4CRB8KrbBpoyt0bg5ahKKedzSd+NgBGvOgCBOCgk23NwW2HA0U2cHyRIfNIk53nxLIMw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\yetsa\\Desktop\\Analisis\\Proyecto_Analisis_Api\\AnalisisProyecto.csproj",
+  "projectFilePath": "C:\\Users\\yetsa\\Desktop\\UCR\\Analisis\\Proyecto_Analisis_Api\\AnalisisProyecto.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\yetsa\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\yetsa\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

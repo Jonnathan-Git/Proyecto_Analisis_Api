@@ -763,16 +763,17 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("day");
-            entity.Property(e => e.EndHour).HasColumnName("end_hour");
+            entity.Property(e => e.EndHour).HasMaxLength(5).HasColumnName("end_hour");
             entity.Property(e => e.IdStudyRoom).HasColumnName("id_study_room");
-            entity.Property(e => e.StartHour).HasColumnName("start_hour");
+            entity.Property(e => e.StartHour).HasMaxLength(5).HasColumnName("start_hour");
 
-            entity.HasOne(d => d.IdStudyRoomNavigation).WithMany(p => p.StudyRoomSchedules)
+           entity.HasOne(d => d.IdStudyRoomNavigation).WithMany(p => p.StudyRoomSchedules)
                 .HasForeignKey(d => d.IdStudyRoom)
                 .HasConstraintName("FK__study_roo__id_st__5BE2A6F2");
             entity.Property(e => e.Active).HasColumnName("active");
 
         });
+       
 
         modelBuilder.Entity<Title>(entity => {
             entity.HasKey(e => e.Id).HasName("PK__titles__3213E83F1E7D6FF8");
