@@ -327,9 +327,7 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.Property(e => e.IdCopy).HasColumnName("id_copy");
             entity.Property(e => e.IdLibraryUser).HasColumnName("id_library_user");
             entity.Property(e => e.IdLoan).HasColumnName("id_loan");
-            entity.Property(e => e.LimitFines)
-                .HasColumnType("date")
-                .HasColumnName("limit_fines");
+            entity.Property(e => e.LimitFines).HasColumnName("limit_fines");
             entity.Property(e => e.Observation)
                 .HasMaxLength(255)
                 .IsUnicode(false)
