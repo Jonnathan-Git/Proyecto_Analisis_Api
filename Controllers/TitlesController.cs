@@ -59,8 +59,6 @@ namespace AnalisisProyecto.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetTitle", new { id = title.Id }, title);
-
-           
         }
 
         // POST: api/Titles

@@ -21,7 +21,7 @@ public partial class LoanBook
 
     public string? Observation { get; set; }
 
-    public DateTime? LimitFines { get; set; }
+    public int? LimitFines { get; set; }
 
     public virtual Copy? IdCopyNavigation { get; set; }
 
