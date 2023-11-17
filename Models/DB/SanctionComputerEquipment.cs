@@ -18,7 +18,7 @@ public partial class SanctionComputerEquipment
 
     [JsonIgnore]
     public virtual ReturnComputerEquipment? IdReturnComputerEquipmentNavigation { get; set; }
-
+    
     [JsonIgnore]
     public virtual ICollection<SanctionsReport> SanctionsReports { get; set; } = new List<SanctionsReport>();
 }

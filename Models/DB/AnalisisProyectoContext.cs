@@ -611,10 +611,9 @@ public partial class AnalisisProyectoContext : DbContext {
         });
 
         modelBuilder.Entity<ReportComputerEquipment>(entity => {
-            entity
-                .HasNoKey()
-                .ToTable("report_computer_equipment");
+            entity.HasNoKey().ToTable("report_computer_equipment");
 
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.IdComputerEquipment).HasColumnName("id_computer_equipment");
             entity.Property(e => e.IdLoanEquipment).HasColumnName("id_loan_equipment");
             entity.Property(e => e.IdReturnEquipment).HasColumnName("id_return_equipment");
