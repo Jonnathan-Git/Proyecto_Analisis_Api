@@ -33,7 +33,7 @@ namespace AnalisisProyecto.Controllers
         }
 
         // GET: api/Furnitures/5
-        [HttpGet()]
+        [HttpGet]
         [Route("getFurniture/{id}")]
         public async Task<ActionResult<Furniture>> GetFurniture(int id)
         {
@@ -53,7 +53,7 @@ namespace AnalisisProyecto.Controllers
 
         // PUT: api/Furnitures/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut()]
+        [HttpPut]
         [Route("updateFurnitures/{id}")]
         public async Task<IActionResult> PutFurniture(int id, Furniture furniture)
         {
@@ -100,7 +100,7 @@ namespace AnalisisProyecto.Controllers
         }
 
         // DELETE: api/Furnitures/5
-        [HttpDelete()]
+        [HttpDelete]
         [Route("deleteFurnitures/{id}")]
         public async Task<IActionResult> DeleteFurniture(int id)
         {
