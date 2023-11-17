@@ -29,7 +29,20 @@ namespace AnalisisProyecto.Controllers
           {
               return NotFound();
           }
-            return await _context.LoanBooks.ToListAsync();
+            return await _context.LoanBooks
+                .Include(p => p.IdLoanNavigation)
+                .ToListAsync();
+        }
+
+        [HttpGet]
+        [Route("getAllByUserId/{id}")]
+        public async Task<ActionResult<IEnumerable<LoanBook>>> GetLoanBooksByUserId(int id) {
+          if (_context.LoanBooks == null) {
+              return NotFound();
+          }
+            return await _context.LoanBooks.Where(l => l.IdLibraryUser == id)
+                .Include(p => p.IdLoanNavigation)
+                .ToListAsync();
         }
 
         // GET: api/LoanBooks/5
@@ -63,7 +76,35 @@ namespace AnalisisProyecto.Controllers
             _context.Entry(loanBook).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTitle", new { id = loanBook.Id }, loanBook);
+            return CreatedAtAction("GetLoanBook", new { id = loanBook.Id }, loanBook);
+        }
+
+        [HttpPut]
+        [Route("approve/{id}")]
+        public async Task<IActionResult> AppoveLoanBook(int id) {
+            if (_context.LoanBooks == null) {
+                return Problem("Entity set 'AnalisisProyectoContext.Titles'  is null.");
+            }
+            var loan = await _context.LoanBooks.FindAsync(id);
+            loan.State = 1;
+            _context.Entry(loan).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok("Solicitud Aprobada con Exito");
+        }
+
+        [HttpPut]
+        [Route("reject/{id}")]
+        public async Task<IActionResult> RejectLoanBook(int id) {
+            if (_context.LoanBooks == null) {
+                return Problem("Entity set 'AnalisisProyectoContext.Titles'  is null.");
+            }
+            var loan = await _context.LoanBooks.FindAsync(id);
+            loan.State = 2;
+            _context.Entry(loan).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok("Solicitud fue Rechazada");
         }
 
         // POST: api/LoanBooks
