@@ -63,7 +63,7 @@ namespace AnalisisProyecto.Controllers
             _context.Entry(loan).State = EntityState.Modified;
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetTitle", new { id = loan.Id }, loan);
+            return CreatedAtAction("GetLoan", new { id = loan.Id }, loan);
         }
 
         // POST: api/Loans

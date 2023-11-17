@@ -328,6 +328,9 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.Property(e => e.IdLibraryUser).HasColumnName("id_library_user");
             entity.Property(e => e.IdLoan).HasColumnName("id_loan");
             entity.Property(e => e.LimitFines).HasColumnName("limit_fines");
+            entity.Property(e => e.State)
+                .HasColumnType("tinyint")
+                .IsUnicode(false);
             entity.Property(e => e.Observation)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -354,7 +357,7 @@ public partial class AnalisisProyectoContext : DbContext {
 
             entity.HasOne(d => d.IdLoanNavigation).WithMany(p => p.LoanBooks)
                 .HasForeignKey(d => d.IdLoan)
-                .HasConstraintName("FK__loan_book__id_lo__6E01572D");
+                .HasConstraintName("FK_loan_books");
         });
 
         modelBuilder.Entity<LoanBookLog>(entity => {
