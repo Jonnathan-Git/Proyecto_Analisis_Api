@@ -12,7 +12,6 @@ public partial class StudyRoom
     public int? Capacity { get; set; }
 
     public bool? IsAvailable { get; set; }
-    public bool Active { get; set; }
 
     public virtual ICollection<Furniture> Furnitures { get; set; } = new List<Furniture>();
 

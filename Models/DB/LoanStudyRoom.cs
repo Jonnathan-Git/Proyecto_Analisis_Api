@@ -23,7 +23,5 @@ public partial class LoanStudyRoom
 
     public virtual Loan? Loan { get; set; }
 
-    public bool Active { get; set; }
-
     public virtual StudyRoom? StudyRoom { get; set; }
 }

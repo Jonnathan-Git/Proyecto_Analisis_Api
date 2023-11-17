@@ -11,7 +11,7 @@ public partial class LoanVehicle
 
     public int? IdUser { get; set; }
 
-    public int? ActivityType { get; set; }
+    public string? ActivityType { get; set; }
 
     public string? Responsible { get; set; }
 
@@ -21,9 +21,15 @@ public partial class LoanVehicle
 
     public string? StartingPlace { get; set; }
 
-    public string? ExitHour { get; set; }
+    public DateTime? ExitDate { get; set; }
 
-    public string? ReturnHour { get; set; }
+    public DateTime? ReturnDate { get; set; }
+
+    public TimeSpan? ExitHour { get; set; }
+
+    public TimeSpan? ReturnHour { get; set; }
+
+    public DateTime? RegisterDate { get; set; }
 
     public int? PersonQuantity { get; set; }
 
@@ -31,7 +37,6 @@ public partial class LoanVehicle
 
     public string? AssignedVehicle { get; set; }
 
-    public bool Active { get; set; }
     public virtual Loan? IdLoanNavigation { get; set; }
 
     public virtual Userr? IdUserNavigation { get; set; }
