@@ -33,7 +33,7 @@ namespace AnalisisProyecto.Controllers
         }
 
         // GET: api/LoanVehicles/5
-        [HttpGet()]
+        [HttpGet]
         [Route("getLoanVehicle/{id}")]
         public async Task<ActionResult<LoanVehicle>> GetLoanVehicle(int id)
         {
@@ -50,7 +50,7 @@ namespace AnalisisProyecto.Controllers
 
             return loanVehicle;
         }
-        [HttpGet()]
+        [HttpGet]
         [Route("getLoanVehicleAllById/{id}")]
         public async Task<ActionResult<IEnumerable<LoanVehicle>>> GetLoanVehicleAllById(int id) {
             if (_context.LoanVehicles == null) {
@@ -61,7 +61,7 @@ namespace AnalisisProyecto.Controllers
 
         // PUT: api/LoanVehicles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut()]
+        [HttpPut]
         [Route("updateLoanVehicle/{id}")]
         public async Task<IActionResult> PutLoanVehicle(int id, LoanVehicle loanVehicle)
         {
@@ -108,7 +108,7 @@ namespace AnalisisProyecto.Controllers
         }
 
         // DELETE: api/LoanVehicles/5
-        [HttpDelete()]
+        [HttpDelete]
         [Route("deleteLoanVehicles/{id}")]
         public async Task<IActionResult> DeleteLoanVehicle(int id)
         {

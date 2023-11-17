@@ -33,7 +33,7 @@ namespace AnalisisProyecto.Controllers
         }
 
         // GET: api/LoanStudyRooms/5
-        [HttpGet()]
+        [HttpGet]
         [Route("getLoanStudyRoom/{id}")]
         public async Task<ActionResult<LoanStudyRoom>> GetLoanStudyRoom(int id)
         {
@@ -53,7 +53,7 @@ namespace AnalisisProyecto.Controllers
 
         // PUT: api/LoanStudyRooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut()]
+        [HttpPut]
         [Route("updateLoanStudyRooms/{id}")]
         public async Task<IActionResult> PutLoanStudyRoom(int id, LoanStudyRoom loanStudyRoom)
         {
@@ -101,7 +101,7 @@ namespace AnalisisProyecto.Controllers
         }
 
         // DELETE: api/LoanStudyRooms/5
-        [HttpDelete()]
+        [HttpDelete]
         [Route("deleteLoanStudyRooms/{id}")]
         public async Task<IActionResult> DeleteLoanStudyRoom(int id)
         {

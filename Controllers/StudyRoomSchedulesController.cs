@@ -35,7 +35,7 @@ namespace AnalisisProyecto.Controllers
         }
 
         // GET: api/StudyRoomSchedules/5
-        [HttpGet()]
+        [HttpGet]
         [Route("getStudyRoomSchedule/{id}")]
         public async Task<ActionResult<StudyRoomSchedule>> GetStudyRoomSchedule(int id)
         {
@@ -55,7 +55,7 @@ namespace AnalisisProyecto.Controllers
 
         // PUT: api/StudyRoomSchedules/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut()]
+        [HttpPut]
         [Route("updateStudyRoomSchedule/{id}")]
         public async Task<IActionResult> PutStudyRoomSchedule(int id, StudyRoomSchedule studyRoomSchedule)
         {
@@ -102,7 +102,7 @@ namespace AnalisisProyecto.Controllers
         }
 
         // DELETE: api/StudyRoomSchedules/5
-        [HttpDelete()]
+        [HttpDelete]
         [Route("deleteStudyRoomSchedule/{id}")]
         public async Task<IActionResult> DeleteStudyRoomSchedule(int id)
         {
