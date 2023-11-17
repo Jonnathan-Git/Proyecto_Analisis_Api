@@ -33,10 +33,10 @@ namespace AnalisisProyecto.Controllers
         }
 
 
-
         // GET: api/Loans/5
-        [HttpGet()]
-        [Route("getLoan/{id}")]
+        [HttpGet]
+        [Route("getById/{id}")]
+
         public async Task<ActionResult<Loan>> GetLoan(int id)
         {
           if (_context.Loans == null)
@@ -55,6 +55,7 @@ namespace AnalisisProyecto.Controllers
 
         // PUT: api/Loans/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
         [HttpPut()]
         [Route("updateLoan/{id}")]
         public async Task<IActionResult> PutLoan(int id, Loan loan)
@@ -83,12 +84,26 @@ namespace AnalisisProyecto.Controllers
             }
 
             return NoContent();
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<IActionResult> PutLoan(Loan loan)
+        {
+            if (_context.Loans == null) {
+                return Problem("Entity set 'AnalisisProyectoContext.Titles'  is null.");
+            }
+            _context.Entry(loan).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetTitle", new { id = loan.Id }, loan);
+
         }
 
-        // POST: api/Loans
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+   
         [HttpPost]
-        [Route("createLoan")]
+
+        [Route("create")]
+
         public async Task<ActionResult<Loan>> PostLoan(Loan loan)
         {
           if (_context.Loans == null)
@@ -101,9 +116,10 @@ namespace AnalisisProyecto.Controllers
             return CreatedAtAction("GetLoan", new { id = loan.Id }, loan);
         }
 
-        // DELETE: api/Loans/5
-        [HttpDelete()]
-        [Route("deleteLoan/{id}")]
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+
         public async Task<IActionResult> DeleteLoan(int id)
         {
             if (_context.Loans == null)

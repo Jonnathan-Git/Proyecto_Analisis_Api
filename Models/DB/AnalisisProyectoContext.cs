@@ -180,6 +180,8 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("state");
+            entity.Property(e => e.Active)
+                .HasColumnName("active");
         });
 
         modelBuilder.Entity<Copy>(entity => {
@@ -218,7 +220,10 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("sub_library");
-
+            entity.Property(e => e.Active)
+                .HasColumnType("bit")
+                .IsUnicode(false)
+                .HasColumnName("active");
             entity.HasOne(d => d.IdTitlesNavigation).WithMany(p => p.Copies)
                 .HasForeignKey(d => d.IdTitles)
                 .HasConstraintName("FK__copy__id_titles__628FA481");
@@ -325,9 +330,7 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.Property(e => e.IdCopy).HasColumnName("id_copy");
             entity.Property(e => e.IdLibraryUser).HasColumnName("id_library_user");
             entity.Property(e => e.IdLoan).HasColumnName("id_loan");
-            entity.Property(e => e.LimitFines)
-                .HasColumnType("date")
-                .HasColumnName("limit_fines");
+            entity.Property(e => e.LimitFines).HasColumnName("limit_fines");
             entity.Property(e => e.Observation)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -715,6 +718,7 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.Property(e => e.IdLibraryUser).HasColumnName("id_library_user");
             entity.Property(e => e.IdReturnComputerEquipment).HasColumnName("id_return_computer_equipment");
             entity.Property(e => e.IdSanctionComputerEquipment).HasColumnName("id_sanction_computer_equipment");
+            entity.Property(e => e.Active).HasColumnName("active");
 
             entity.HasOne(d => d.IdLibraryUserNavigation).WithMany(p => p.SanctionsReports)
                 .HasForeignKey(d => d.IdLibraryUser)
@@ -819,6 +823,10 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("title");
+            entity.Property(e => e.Active)
+                .HasColumnType("bit")
+                .IsUnicode(false)
+                .HasColumnName("active");
         });
 
         modelBuilder.Entity<Userr>(entity => {
