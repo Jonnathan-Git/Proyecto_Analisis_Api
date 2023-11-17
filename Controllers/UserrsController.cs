@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using BCrypt.Net;
+using AnalisisProyecto.Models.DTO;
 
 namespace AnalisisProyecto.Controllers {
     [Route("api/[controller]")]
@@ -95,7 +96,7 @@ namespace AnalisisProyecto.Controllers {
         [Route("updateUser")]
         public async Task<IActionResult> PutUserr(Userr userr) {
 
-            if (userr == null || string.IsNullOrEmpty(userr.Password)) {
+            if (userr == null) {
                 return BadRequest();
             }
 
@@ -143,15 +144,13 @@ namespace AnalisisProyecto.Controllers {
         [Route("createUser")]
         public async Task<ActionResult<Userr>> PostUserr(Userr userr) {
 
-            Console.WriteLine(userr.Password);
-
             if (userr.Password == null) {
                 return BadRequest();
             }
 
             var userr2 = await _context.Userrs.FirstOrDefaultAsync(u => u.UserId == userr.UserId);
             if (userr2 != null) {
-                return BadRequest();
+                return BadRequest("Usuario exitente");
             }
 
 
@@ -188,6 +187,26 @@ namespace AnalisisProyecto.Controllers {
             //await _context.SaveChangesAsync();
 
             return Ok(id);
+        }
+
+        [HttpPost]
+        [Route("login")]
+        public async Task<ActionResult<UserLoginDto>> Login(UserLoginDto userr) {
+            if (userr == null) {
+                return BadRequest();
+            }
+
+            var userr2 = await _context.Userrs.FirstOrDefaultAsync(u => u.UserId == userr.UserId);
+
+            if (userr2 == null) {
+                return NotFound();
+            }
+
+            if (!BCrypt.Net.BCrypt.Verify(userr.Password, userr2.Password)) {
+                return Unauthorized("Bad Password");
+            }
+
+            return Ok(userr2);
         }
 
         private bool UserrExists(int id) {
