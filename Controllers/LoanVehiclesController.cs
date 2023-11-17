@@ -50,6 +50,14 @@ namespace AnalisisProyecto.Controllers
 
             return loanVehicle;
         }
+        [HttpGet()]
+        [Route("getLoanVehicleAllById/{id}")]
+        public async Task<ActionResult<IEnumerable<LoanVehicle>>> GetLoanVehicleAllById(int id) {
+            if (_context.LoanVehicles == null) {
+                return NotFound();
+            }
+            return await _context.LoanVehicles.Where(v => v.IdUser == id).Include(p => p.IdLoanNavigation).ToListAsync();
+        }
 
         // PUT: api/LoanVehicles/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

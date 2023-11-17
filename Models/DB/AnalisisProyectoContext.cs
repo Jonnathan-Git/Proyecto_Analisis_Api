@@ -547,10 +547,7 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.ToTable("loan_vehicle");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.ActivityType)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("activity_type");
+            entity.Property(e => e.ActivityType).HasColumnName("activity_type");
             entity.Property(e => e.AssignedVehicle)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -559,23 +556,17 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("destination");
-            entity.Property(e => e.ExitDate)
-                .HasColumnType("date")
-                .HasColumnName("exit_date");
+        
             entity.Property(e => e.ExitHour).HasColumnName("exit_hour");
             entity.Property(e => e.IdLoan).HasColumnName("id_loan");
             entity.Property(e => e.IdUser).HasColumnName("id_user");
             entity.Property(e => e.PersonQuantity).HasColumnName("person_quantity");
-            entity.Property(e => e.RegisterDate)
-                .HasColumnType("date")
-                .HasColumnName("register_date");
+       
             entity.Property(e => e.Responsible)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("responsible");
-            entity.Property(e => e.ReturnDate)
-                .HasColumnType("date")
-                .HasColumnName("return_date");
+           
             entity.Property(e => e.ReturnHour).HasColumnName("return_hour");
             entity.Property(e => e.StartingPlace)
                 .HasMaxLength(255)

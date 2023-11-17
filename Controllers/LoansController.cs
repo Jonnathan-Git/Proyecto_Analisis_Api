@@ -32,6 +32,8 @@ namespace AnalisisProyecto.Controllers
             return await _context.Loans.ToListAsync();
         }
 
+
+
         // GET: api/Loans/5
         [HttpGet()]
         [Route("getLoan/{id}")]
