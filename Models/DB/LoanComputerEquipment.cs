@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AnalisisProyecto.Models.DB;
 
@@ -25,6 +26,7 @@ public partial class LoanComputerEquipment
 
     public string? RequestActivity { get; set; }
 
+    [JsonIgnore]
     public virtual ComputerEquipment? IdComputerEquipmentNavigation { get; set; }
 
     public virtual LibraryUser? IdLibraryUserNavigation { get; set; }
