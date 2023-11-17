@@ -49,6 +49,48 @@ namespace AnalisisProyecto.Controllers
             return loanComputerEquipment;
         }
 
+        [HttpGet]
+        [Route("getLoanComputerEquipmentByIdUser/{idUser}")]
+        public async Task<ActionResult<IEnumerable<LoanComputerEquipment>>> GetLoanComputerEquipmentByIdUser(int idUser)
+        {
+          if (_context.LoanComputerEquipments == null)
+            {
+              return NotFound();
+          }
+            var loanComputerEquipment = _context.LoanComputerEquipments.Where(x => x.IdLibraryUser == idUser)
+                .Select(l => new LoanComputerEquipment
+                {
+                    Id = l.Id,
+                    IdLibraryUser = l.IdLibraryUser,
+                    IdComputerEquipment = l.IdComputerEquipment,
+                    IdLoan = l.IdLoan,
+                    Assets = l.Assets,
+                    AssetEvaluation = l.AssetEvaluation,
+                    DestinationPlace = l.DestinationPlace,
+                    State = l.State,
+                    Dependence = l.Dependence,
+                    RequestActivity = l.RequestActivity,
+
+                    IdLibraryUserNavigation = new LibraryUser
+                    {
+                        Id = l.IdLibraryUserNavigation.Id,
+                        IdUser = l.IdLibraryUserNavigation.IdUser,
+
+                        IdUserNavigation = new Userr
+                        {
+                            Name = l.IdLibraryUserNavigation.IdUserNavigation.Name
+                        }
+                    }
+                }).ToList();
+
+            if (loanComputerEquipment == null)
+            {
+                return NotFound();
+            }
+
+            return loanComputerEquipment;
+        }
+
         // PUT: api/LoanComputerEquipments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
