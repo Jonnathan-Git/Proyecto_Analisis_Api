@@ -28,6 +28,6 @@ public partial class LoanBook
     public virtual Copy? IdCopyNavigation { get; set; }
     [JsonIgnore]
     public virtual LibraryUser? IdLibraryUserNavigation { get; set; }
-
+    
     public virtual Loan? IdLoanNavigation { get; set; }
 }
