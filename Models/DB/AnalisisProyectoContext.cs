@@ -433,6 +433,7 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.ToTable("loan_computer_equipment");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Active).HasColumnName("active");
             entity.Property(e => e.AssetEvaluation)
                 .HasMaxLength(255)
                 .IsUnicode(false)
