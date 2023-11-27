@@ -331,6 +331,9 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.Property(e => e.IdLibraryUser).HasColumnName("id_library_user");
             entity.Property(e => e.IdLoan).HasColumnName("id_loan");
             entity.Property(e => e.LimitFines).HasColumnName("limit_fines");
+            entity.Property(e => e.State)
+                .HasColumnType("tinyint")
+                .IsUnicode(false);
             entity.Property(e => e.Observation)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -357,7 +360,7 @@ public partial class AnalisisProyectoContext : DbContext {
 
             entity.HasOne(d => d.IdLoanNavigation).WithMany(p => p.LoanBooks)
                 .HasForeignKey(d => d.IdLoan)
-                .HasConstraintName("FK__loan_book__id_lo__6E01572D");
+                .HasConstraintName("FK_loan_books");
         });
 
         modelBuilder.Entity<LoanBookLog>(entity => {
@@ -430,6 +433,7 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.ToTable("loan_computer_equipment");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Active).HasColumnName("active");
             entity.Property(e => e.AssetEvaluation)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -607,10 +611,9 @@ public partial class AnalisisProyectoContext : DbContext {
         });
 
         modelBuilder.Entity<ReportComputerEquipment>(entity => {
-            entity
-                .HasNoKey()
-                .ToTable("report_computer_equipment");
+            entity.HasNoKey().ToTable("report_computer_equipment");
 
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.IdComputerEquipment).HasColumnName("id_computer_equipment");
             entity.Property(e => e.IdLoanEquipment).HasColumnName("id_loan_equipment");
             entity.Property(e => e.IdReturnEquipment).HasColumnName("id_return_equipment");
