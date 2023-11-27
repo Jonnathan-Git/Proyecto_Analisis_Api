@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AnalisisProyecto.Models.DB;
 
@@ -21,11 +22,12 @@ public partial class LoanBook
 
     public string? Observation { get; set; }
 
-    public DateTime? LimitFines { get; set; }
+    public int? LimitFines { get; set; }
+    public int? State { get; set; }
 
     public virtual Copy? IdCopyNavigation { get; set; }
-
+    [JsonIgnore]
     public virtual LibraryUser? IdLibraryUserNavigation { get; set; }
-
+    
     public virtual Loan? IdLoanNavigation { get; set; }
 }

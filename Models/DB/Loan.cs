@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AnalisisProyecto.Models.DB;
 
@@ -14,7 +15,7 @@ public partial class Loan
     public DateTime? RegisterDate { get; set; }
 
     public virtual ICollection<LoanBookLog> LoanBookLogs { get; set; } = new List<LoanBookLog>();
-
+    [JsonIgnore]
     public virtual ICollection<LoanBook> LoanBooks { get; set; } = new List<LoanBook>();
 
     public virtual ICollection<LoanClassroom> LoanClassrooms { get; set; } = new List<LoanClassroom>();
