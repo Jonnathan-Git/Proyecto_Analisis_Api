@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnalisisProyecto.Models.DB;
+using AnalisisProyecto.Models.DTO;
 
 namespace AnalisisProyecto.Controllers
 {
@@ -23,13 +24,24 @@ namespace AnalisisProyecto.Controllers
         // GET: api/LoanVehicles
         [HttpGet]
         [Route("getAll")]
-        public async Task<ActionResult<IEnumerable<LoanVehicle>>> GetLoanVehicles()
+        public async Task<ActionResult<IEnumerable<LoanAndVehicle>>> GetLoanVehicles()
         {
           if (_context.LoanVehicles == null)
           {
               return NotFound();
           }
-            return await _context.LoanVehicles.ToListAsync();
+            List< LoanVehicle> lista= await _context.LoanVehicles.ToListAsync();
+            List<LoanAndVehicle> lista_items = new List<LoanAndVehicle>();
+            foreach (var item in lista)
+            {
+                //Consulta de Loan por id -- 
+                Loan loan = await _context.Loans.FindAsync(item.IdLoan);
+                LoanAndVehicle lv= new LoanAndVehicle(item.Id,item.IdLoan, item.IdUser, item.ActivityType, item.Responsible, item.State, item.Destination, item.StartingPlace,
+                    item.ExitHour, item.ReturnHour, item.PersonQuantity, item.UnityOrCarrer, item.AssignedVehicle, item.Active, loan.StartDate, loan.EndDate);
+                Console.WriteLine(lv.Id);
+                lista_items.Add(lv);
+            }
+            return lista_items;
         }
 
         // GET: api/LoanVehicles/5
