@@ -12,6 +12,8 @@ public partial class LoanComputerEquipment
 
     public int? IdLoan { get; set; }
 
+    public byte? Active { get; set; }
+
     public int? IdLibraryUser { get; set; }
 
     public string? Assets { get; set; }

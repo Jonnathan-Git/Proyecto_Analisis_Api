@@ -51,6 +51,20 @@ namespace AnalisisProyecto.Controllers
             return computerEquipment;
         }
 
+        [HttpGet]
+        [Route("getBySerialNumber/{serialNumber}")]
+        public ComputerEquipment GetComputerEquipmentBySerialNumber(string serialNumber)
+        {
+            return _context.ComputerEquipments?.FirstOrDefault(e => e.SerialNumber == serialNumber);
+        }
+
+        [HttpGet]
+        [Route("getByPlate/{plate}")]
+        public ComputerEquipment GetComputerEquipmentByPlate(string plate)
+        {
+            return _context.ComputerEquipments?.FirstOrDefault(e => e.LicensePlate == plate);
+        }
+
         // PUT: api/ComputerEquipments/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]

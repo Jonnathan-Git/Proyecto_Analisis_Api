@@ -28,7 +28,38 @@ namespace AnalisisProyecto.Controllers
           {
               return NotFound();
           }
-            return await _context.LoanComputerEquipments.ToListAsync();
+            return await _context.LoanComputerEquipments.Select(l => new LoanComputerEquipment
+            {
+                Id = l.Id,
+                Active = l.Active,
+                IdLibraryUser = l.IdLibraryUser,
+                IdComputerEquipment = l.IdComputerEquipment,
+                IdLoan = l.IdLoan,
+                Assets = l.Assets,
+                AssetEvaluation = l.AssetEvaluation,
+                DestinationPlace = l.DestinationPlace,
+                State = l.State,
+                Dependence = l.Dependence,
+                RequestActivity = l.RequestActivity,
+
+                IdLibraryUserNavigation = new LibraryUser
+                {
+                    Id = l.IdLibraryUserNavigation.Id,
+                    IdUser = l.IdLibraryUserNavigation.IdUser,
+
+                    IdUserNavigation = new Userr
+                    {
+                        Name = l.IdLibraryUserNavigation.IdUserNavigation.Name
+                    }
+                },
+
+                IdLoanNavigation = new Loan
+                {
+                    Id = l.IdLoanNavigation.Id,
+                    StartDate = l.IdLoanNavigation.StartDate,
+                    EndDate = l.IdLoanNavigation.EndDate,
+                },
+            }).ToListAsync();
         }
 
         // GET: api/LoanComputerEquipments/5
@@ -61,6 +92,57 @@ namespace AnalisisProyecto.Controllers
                 .Select(l => new LoanComputerEquipment
                 {
                     Id = l.Id,
+                    Active = l.Active,
+                    IdLibraryUser = l.IdLibraryUser,
+                    IdComputerEquipment = l.IdComputerEquipment,
+                    IdLoan = l.IdLoan,
+                    Assets = l.Assets,
+                    AssetEvaluation = l.AssetEvaluation,
+                    DestinationPlace = l.DestinationPlace,
+                    State = l.State,
+                    Dependence = l.Dependence,
+                    RequestActivity = l.RequestActivity,
+
+                    IdLibraryUserNavigation = new LibraryUser
+                    {
+                        Id = l.IdLibraryUserNavigation.Id,
+                        IdUser = l.IdLibraryUserNavigation.IdUser,
+
+                        IdUserNavigation = new Userr
+                        {
+                            Name = l.IdLibraryUserNavigation.IdUserNavigation.Name
+                        }
+                    },
+
+                    IdLoanNavigation = new Loan
+                    {
+                        Id = l.IdLoanNavigation.Id,
+                        StartDate = l.IdLoanNavigation.StartDate,
+                        EndDate = l.IdLoanNavigation.EndDate,
+                    },
+                }).ToList();
+
+            if (loanComputerEquipment == null)
+            {
+                return NotFound();
+            }
+
+            return loanComputerEquipment;
+        }
+
+        [HttpGet]
+        [Route("getLoanComputerEquipmentByIdComputerEquipment/{idComputerEquipment}/{idUser}")]
+        public async Task<ActionResult<IEnumerable<LoanComputerEquipment>>> GetLoanComputerEquipmentByIdComputerEquipment(int idComputerEquipment, int idUser)
+        {
+          if (_context.LoanComputerEquipments == null)
+            {
+              return NotFound();
+          }
+            var loanComputerEquipment = _context.LoanComputerEquipments.Where(x => x.IdComputerEquipment == idComputerEquipment && x.IdLibraryUser == idUser)
+                .Select(l => new LoanComputerEquipment
+                {
+                    Id = l.Id,
+                    Active = l.Active,
                     IdLibraryUser = l.IdLibraryUser,
                     IdComputerEquipment = l.IdComputerEquipment,
                     IdLoan = l.IdLoan,
@@ -121,6 +203,21 @@ namespace AnalisisProyecto.Controllers
 
             return NoContent();
         }
+
+        [HttpPut]
+        [Route("updateActive/{idLoan}/{active}")]
+        public async Task<IActionResult> PutLoanComputerEquipmentActive(int idLoan, byte active)
+        {
+            var computerEquipment = await _context.LoanComputerEquipments.FindAsync(idLoan);
+
+            computerEquipment.Active = active;
+
+            _context.Entry(computerEquipment).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok();
+        }
+
 
         // POST: api/LoanComputerEquipments
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
