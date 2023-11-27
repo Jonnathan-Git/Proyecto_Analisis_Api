@@ -52,6 +52,8 @@ namespace AnalisisProyecto.Controllers {
                 CreationDate = u.CreationDate.GetValueOrDefault(DateTime.Now)
             }).ToList();
 
+            Thread.Sleep(1000);
+
             return Ok(userDtos);//Content(JsonSerializer.Serialize(userrs, jsonOptions), "application/json");
         }
 
@@ -206,7 +208,20 @@ namespace AnalisisProyecto.Controllers {
                 return Unauthorized("Bad Password");
             }
 
-            return Ok(userr2);
+            var userDTO = await _context.Userrs.Where(u => u.UserId == userr.UserId).Select(u => new UserDto {
+                Id = u.Id,
+                UserId = u.UserId != null ? u.UserId : string.Empty,
+                Name = u.Name != null ? u.Name : string.Empty,
+                LastName = u.LastName != null ? u.LastName : string.Empty,
+                Category = u.Category != null ? u.Category : string.Empty,
+                Role = u.Role != null ? u.Role.Name != null ? u.Role.Name : string.Empty : string.Empty,
+                Phone = u.Phone != null ? u.Phone : string.Empty,
+                Career = u.Career != null ? u.Career : string.Empty,
+                Deleted = u.Deleted.GetValueOrDefault(false) ? 1 : 0,
+                CreationDate = u.CreationDate.GetValueOrDefault(DateTime.Now)
+            }).FirstOrDefaultAsync();
+
+            return Ok(userDTO);
         }
 
         private bool UserrExists(int id) {
