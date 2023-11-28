@@ -15,9 +15,9 @@ namespace AnalisisProyecto.Models.DTO
 
         public int? StudyRoomId { get; set; }
 
-        public TimeSpan? ReturnHour { get; set; }
+        public string? ReturnHour { get; set; }
 
-        public TimeSpan? EndHour { get; set; }
+        public string? ExitHour { get; set; }
 
 
         public bool Active { get; set; }
@@ -25,7 +25,7 @@ namespace AnalisisProyecto.Models.DTO
 
         public DateTime? EndDate { get; set; }
 
-        public LoanAndStudyRoom(int id, int? numberOfPeople, int? loanId, int? idUserLibrary, int? studyRoomId, TimeSpan? returnHour, TimeSpan? endHour, bool active, DateTime? startDate, DateTime? endDate)
+        public LoanAndStudyRoom(int id, int? numberOfPeople, int? loanId, int? idUserLibrary, int? studyRoomId, string? returnHour, string? exitHour, bool active, DateTime? startDate, DateTime? endDate)
         {
             Id = id;
             NumberOfPeople = numberOfPeople;
@@ -33,7 +33,7 @@ namespace AnalisisProyecto.Models.DTO
             IdUserLibrary = idUserLibrary;
             StudyRoomId = studyRoomId;
             ReturnHour = returnHour;
-            EndHour = endHour;
+            ExitHour = exitHour;
             Active = active;
             StartDate = startDate;
             EndDate = endDate;

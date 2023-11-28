@@ -11,9 +11,9 @@ public partial class LoanStudyRoom
 
     public int? LoanId { get; set; }
 
-    public TimeSpan? ReturnHour { get; set; }
+    public string? ReturnHour { get; set; }
 
-    public TimeSpan? EndHour { get; set; }
+    public string? ExitHour { get; set; }
 
     public int? IdUserLibrary { get; set; }
 

@@ -37,7 +37,7 @@ namespace AnalisisProyecto.Controllers
                 //Consulta de Loan por id -- 
                 Loan loan = await _context.Loans.FindAsync(item.LoanId);
                 LoanAndStudyRoom lv = new LoanAndStudyRoom(item.Id,item.NumberOfPeople,item.LoanId, 
-                    item.IdUserLibrary, item.StudyRoomId,item.ReturnHour, item.EndHour, item.Active, loan.StartDate, loan.EndDate);
+                    item.IdUserLibrary, item.StudyRoomId,item.ReturnHour, item.ExitHour, item.Active, loan.StartDate, loan.EndDate);
                 Console.WriteLine(lv.Id);
                 lista_items.Add(lv);
             }
@@ -107,9 +107,11 @@ namespace AnalisisProyecto.Controllers
               return Problem("Entity set 'AnalisisProyectoContext.LoanStudyRooms'  is null.");
           }
             _context.LoanStudyRooms.Add(loanStudyRoom);
+            Console.WriteLine("Id:  "+loanStudyRoom.LoanId);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLoanStudyRoom", new { id = loanStudyRoom.Id }, loanStudyRoom);
+          
+            return NoContent(); 
         }
 
         // DELETE: api/LoanStudyRooms/5
