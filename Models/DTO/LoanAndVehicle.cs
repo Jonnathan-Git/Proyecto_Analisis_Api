@@ -31,6 +31,7 @@ namespace AnalisisProyecto.Models.DTO
         public string? AssignedVehicle { get; set; }
 
         public bool Active { get; set; }
+
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }

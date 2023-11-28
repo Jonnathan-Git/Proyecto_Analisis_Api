@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnalisisProyecto.Models.DB;
+using AnalisisProyecto.Models.DTO;
 
 namespace AnalisisProyecto.Controllers
 {
@@ -23,13 +24,24 @@ namespace AnalisisProyecto.Controllers
         // GET: api/LoanStudyRooms
         [HttpGet]
         [Route("getAll")]
-        public async Task<ActionResult<IEnumerable<LoanStudyRoom>>> GetLoanStudyRooms()
+        public async Task<ActionResult<IEnumerable<LoanAndStudyRoom>>> GetLoanStudyRooms()
         {
           if (_context.LoanStudyRooms == null)
           {
               return NotFound();
           }
-            return await _context.LoanStudyRooms.ToListAsync();
+            List<LoanStudyRoom> lista = await _context.LoanStudyRooms.ToListAsync();
+            List<LoanAndStudyRoom> lista_items = new List<LoanAndStudyRoom>();
+            foreach (var item in lista)
+            {
+                //Consulta de Loan por id -- 
+                Loan loan = await _context.Loans.FindAsync(item.LoanId);
+                LoanAndStudyRoom lv = new LoanAndStudyRoom(item.Id,item.NumberOfPeople,item.LoanId, 
+                    item.IdUserLibrary, item.StudyRoomId,item.ReturnHour, item.EndHour, item.Active, loan.StartDate, loan.EndDate);
+                Console.WriteLine(lv.Id);
+                lista_items.Add(lv);
+            }
+            return lista_items;
         }
 
         // GET: api/LoanStudyRooms/5
