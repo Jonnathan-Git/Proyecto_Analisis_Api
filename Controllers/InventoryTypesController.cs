@@ -58,6 +58,21 @@ namespace AnalisisProyecto.Controllers {
             return inventoryTypes;
         }
 
+        [HttpGet]
+        [Route("getInventoryTypeByIdInventory/{id}")]
+        public async Task<ActionResult<InventoryType>> GetInventoryTypeByIdInventory(int id) {
+            if (_context.InventoryTypes == null) {
+                return NotFound();
+            }
+            var inventoryType = await _context.InventoryTypes.FirstOrDefaultAsync(i => i.InventoryId == id);
+
+            if (inventoryType == null) {
+                return NotFound();
+            }
+
+            return inventoryType;
+        }
+
         // PUT: api/InventoryTypes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
