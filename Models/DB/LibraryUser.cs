@@ -15,7 +15,7 @@ public partial class LibraryUser
     public string? Privilege { get; set; }
 
     public string? TypeUser { get; set; }
-
+    [JsonIgnore]
     public virtual Userr? IdUserNavigation { get; set; }
 
     public virtual ICollection<LoanBook> LoanBooks { get; set; } = new List<LoanBook>();
