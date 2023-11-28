@@ -162,6 +162,39 @@ namespace AnalisisProyecto.Controllers
                 return false;
             }
         }
+        [HttpPut]
+        [Route("update")]
+        public async Task<IActionResult> PutLoanClassRoom(LoanClassroom loanClassroom)
+        {
+            if (_context.LoanClassrooms == null)
+            {
+                return Problem("Entity set 'AnalisisProyectoContext.Titles'  is null.");
+            }
+            _context.Entry(loanClassroom).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetLoanClassroom", new { id = loanClassroom.Id }, loanClassroom);
+
+        }
+
+        [HttpDelete]
+        [Route("Delete")]
+        public async Task<IActionResult> DeleteLoanClassroom(LoanClassroom loanClassroom)
+        {
+            if (_context.LoanClassrooms == null)
+            {
+                return NotFound();
+            }
+            _context.Entry(loanClassroom).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            if (loanClassroom == null)
+            {
+                return NotFound();
+            }
+
+            return NoContent();
+        }
 
 
     }

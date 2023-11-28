@@ -19,9 +19,10 @@ public partial class LoanClassroom
 
     public string? RequestState { get; set; }
 
+    public int? Inactive { get; set; }
+
+    public int? IdSchedule { get; set; }
     public virtual Classroom? IdClassroomNavigation { get; set; }
-
     public virtual Loan? IdLoanNavigation { get; set; }
-
     public virtual Userr? IdUserNavigation { get; set; }
 }
