@@ -9,4 +9,5 @@ public class UserDto {
     public string Career { get; set; }
     public int Deleted { get; set; }
     public DateTime CreationDate { get; set; }
+    public int? IdLibraryUser { get; set; }
 }

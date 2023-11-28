@@ -208,7 +208,9 @@ namespace AnalisisProyecto.Controllers {
                 return Unauthorized("Bad Password");
             }
 
-            var userDTO = await _context.Userrs.Where(u => u.UserId == userr.UserId).Select(u => new UserDto {
+            var userDTO = await _context.Userrs.Where(u => u.UserId == userr.UserId)
+                .Include(l => l.LibraryUsers)
+                .Select(u => new UserDto {
                 Id = u.Id,
                 UserId = u.UserId != null ? u.UserId : string.Empty,
                 Name = u.Name != null ? u.Name : string.Empty,
@@ -218,6 +220,7 @@ namespace AnalisisProyecto.Controllers {
                 Phone = u.Phone != null ? u.Phone : string.Empty,
                 Career = u.Career != null ? u.Career : string.Empty,
                 Deleted = u.Deleted.GetValueOrDefault(false) ? 1 : 0,
+                IdLibraryUser = u.LibraryUsers.FirstOrDefault().Id,
                 CreationDate = u.CreationDate.GetValueOrDefault(DateTime.Now)
             }).FirstOrDefaultAsync();
 
