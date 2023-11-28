@@ -73,71 +73,71 @@ namespace AnalisisProyecto.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                
+
             }
 
             return NoContent();
         }
 
-            [HttpPut]
-            [Route("update")]
-            public async Task<IActionResult> PutLoan(Loan loan)
+        [HttpPut]
+        [Route("update")]
+        public async Task<IActionResult> PutLoan(Loan loan)
+        {
+            if (_context.Loans == null)
             {
-                if (_context.Loans == null) {
-                    return Problem("Entity set 'AnalisisProyectoContext.Titles'  is null.");
-                }
-                _context.Entry(loan).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
+                return Problem("Entity set 'AnalisisProyectoContext.Titles'  is null.");
+            }
+            _context.Entry(loan).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-                return CreatedAtAction("GetLoan", new { id = loan.Id }, loan);
+            return CreatedAtAction("GetLoan", new { id = loan.Id }, loan);
 
+        }
+
+
+        [HttpPost]
+
+        [Route("create")]
+
+        public async Task<ActionResult<Loan>> PostLoan(Loan loan)
+        {
+            if (_context.Loans == null)
+            {
+                return Problem("Entity set 'AnalisisProyectoContext.Loans'  is null.");
+            }
+            _context.Loans.Add(loan);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetLoan", new { id = loan.Id }, loan);
+        }
+
+
+        [HttpDelete]
+        [Route("delete/{id}")]
+
+        public async Task<IActionResult> DeleteLoan(int id)
+        {
+            if (_context.Loans == null)
+            {
+                return NotFound();
+            }
+            var loan = await _context.Loans.FindAsync(id);
+
+            if (loan == null)
+            {
+                return NotFound();
             }
 
+            _context.Loans.Remove(loan);
+            await _context.SaveChangesAsync();
 
-            [HttpPost]
-
-            [Route("create")]
-
-            public async Task<ActionResult<Loan>> PostLoan(Loan loan)
-            {
-                if (_context.Loans == null)
-                {
-                    return Problem("Entity set 'AnalisisProyectoContext.Loans'  is null.");
-                }
-                _context.Loans.Add(loan);
-                await _context.SaveChangesAsync();
-
-                return CreatedAtAction("GetLoan", new { id = loan.Id }, loan);
-            }
-
-
-            [HttpDelete]
-            [Route("delete/{id}")]
-
-            public async Task<IActionResult> DeleteLoan(int id)
-            {
-                if (_context.Loans == null)
-                {
-                    return NotFound();
-                }
-                var loan = await _context.Loans.FindAsync(id);
-
-                if (loan == null)
-                {
-                    return NotFound();
-                }
-
-                _context.Loans.Remove(loan);
-                await _context.SaveChangesAsync();
-
-                return NoContent();
-            }
+            return NoContent();
+        }
 
         [HttpGet("api/loans/exists/{id}")]
         public bool LoanExists(int id)
-            {
-                return (_context.Loans?.Any(e => e.Id == id)).GetValueOrDefault();
-            }
+        {
+            return (_context.Loans?.Any(e => e.Id == id)).GetValueOrDefault();
         }
     }
-
+}

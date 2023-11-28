@@ -15,6 +15,6 @@ public partial class StudyRoomSchedule
 
     public string? EndHour { get; set; }
 
-   public virtual StudyRoom? IdStudyRoomNavigation { get; set; }
+    public virtual StudyRoom? IdStudyRoomNavigation { get; set; }
     public bool Active { get; set; }
 }

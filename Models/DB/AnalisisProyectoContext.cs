@@ -92,21 +92,22 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasConstraintName("FK__area__inventory___5165187F");
         });
 
-        modelBuilder.Entity<Classroom>(entity => {
+        modelBuilder.Entity<Classroom>(entity =>
+        {
             entity.HasKey(e => e.Id).HasName("PK__classroo__3213E83F5D82BCDE");
 
             entity.ToTable("classrooms");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Description)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("description");
             entity.Property(e => e.Numeration)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("numeration");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
-            entity.Property(e => e.Requirements)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("requirements");
             entity.Property(e => e.Type)
                 .HasMaxLength(255)
                 .IsUnicode(false)
@@ -404,27 +405,39 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasConstraintName("FK__loan_book__id_us__5EBF139D");
         });
 
-        modelBuilder.Entity<LoanClassroom>(entity => {
-            entity.HasKey(e => e.Id).HasName("PK__loan_cla__3213E83F1C9FA5E6");
+        modelBuilder.Entity<LoanClassroom>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__loan_cla__3213E83F415CDD20");
 
             entity.ToTable("loan_classrooms");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.IdClassroom).HasColumnName("id_classroom");
             entity.Property(e => e.IdLoan).HasColumnName("id_loan");
+            entity.Property(e => e.IdUser).HasColumnName("id_user");
             entity.Property(e => e.PersonQuantity).HasColumnName("person_quantity");
+            entity.Property(e => e.IdSchedule).HasColumnName("IdSchedule");
+            entity.Property(e => e.Inactive).HasColumnName("inactive");
+            entity.Property(e => e.RequestState)
+                .HasMaxLength(10)
+                .IsUnicode(false)
+                .HasColumnName("request_state");
+            entity.Property(e => e.Requirements)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("requirements");
 
             entity.HasOne(d => d.IdClassroomNavigation).WithMany(p => p.LoanClassrooms)
                 .HasForeignKey(d => d.IdClassroom)
-                .HasConstraintName("FK__loan_clas__id_cl__7B5B524B");
+                .HasConstraintName("FK__loan_clas__id_cl__1332DBDC");
 
             entity.HasOne(d => d.IdLoanNavigation).WithMany(p => p.LoanClassrooms)
                 .HasForeignKey(d => d.IdLoan)
-                .HasConstraintName("FK__loan_clas__id_lo__7A672E12");
+                .HasConstraintName("FK__loan_clas__id_lo__123EB7A3");
 
             entity.HasOne(d => d.IdUserNavigation).WithMany(p => p.LoanClassrooms)
-            .HasForeignKey(d => d.Id)
-                .HasConstraintName("FK__loan_clas__id_us__7C4F7684");
+                .HasForeignKey(d => d.IdUser)
+                .HasConstraintName("FK__loan_clas__id_us__14270015");
         });
 
         modelBuilder.Entity<LoanComputerEquipment>(entity => {
@@ -484,11 +497,9 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.Property(e => e.IdLoan).HasColumnName("id_loan");
             entity.Property(e => e.IdUser).HasColumnName("id_user");
             entity.Property(e => e.Lightning).HasColumnName("lightning");
-            entity.Property(e => e.Materials)
-                .HasMaxLength(255)
-                .IsUnicode(false)
-                .HasColumnName("materials");
-
+            entity.Property(e => e.Inactive).HasColumnName("Inactive");
+            entity.Property(e => e.EndHour).HasColumnName("end_hour");
+            entity.Property(e => e.StartHour).HasColumnName("start_hour");
             entity.HasOne(d => d.IdLoanNavigation).WithMany(p => p.LoanFields)
                 .HasForeignKey(d => d.IdLoan)
                 .HasConstraintName("FK__loan_fiel__id_lo__72C60C4A");
@@ -510,7 +521,7 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("materials");
-            entity.Property(e => e.Quantity).HasColumnName("quantity");
+            entity.Property(e => e.Inactive).HasColumnName("Inactive");
 
             entity.HasOne(d => d.IdLoanNavigation).WithMany(p => p.LoanSportsEquipments)
                 .HasForeignKey(d => d.IdLoan)
