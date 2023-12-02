@@ -11,7 +11,11 @@ public partial class Inventory
 
     public string? Description { get; set; }
 
+    public string? Type { get; set; }
+
+    public bool deleted { get; set; } = false;
+
     public virtual ICollection<Area> Areas { get; set; } = new List<Area>();
 
-    public virtual ICollection<InventoryType> InventoryTypes { get; set; } = new List<InventoryType>();
+    
 }
