@@ -11,9 +11,13 @@ public partial class LoanField
 
     public int? IdUser { get; set; }
 
-    public string? Materials { get; set; }
-
     public bool? Lightning { get; set; }
+
+    public int? Inactive { get; set; }
+
+    public TimeSpan? StartHour { get; set; }
+
+    public TimeSpan? EndHour { get; set; }
 
     public virtual Loan? IdLoanNavigation { get; set; }
 

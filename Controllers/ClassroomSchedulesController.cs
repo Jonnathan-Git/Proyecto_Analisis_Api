@@ -49,35 +49,20 @@ namespace AnalisisProyecto.Controllers
             return classroomSchedule;
         }
 
-        // PUT: api/ClassroomSchedules/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutClassroomSchedule(int id, ClassroomSchedule classroomSchedule)
+
+        [HttpPut]
+        [Route("update")]
+        public async Task<IActionResult> PutClassroomSchedule(ClassroomSchedule classroomSchedule)
         {
-            if (id != classroomSchedule.Id)
+            if (_context.ClassroomSchedules == null)
             {
-                return BadRequest();
+                return Problem("Entity set 'AnalisisProyectoContext.Titles'  is null.");
             }
-
             _context.Entry(classroomSchedule).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ClassroomScheduleExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            return CreatedAtAction("GetClassroomSchedule", new { id = classroomSchedule.Id }, classroomSchedule);
 
-            return NoContent();
         }
 
         // POST: api/ClassroomSchedules

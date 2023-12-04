@@ -13,7 +13,7 @@ public partial class LoanSportsEquipment
 
     public string? Materials { get; set; }
 
-    public int? Quantity { get; set; }
+    public int? Inactive { get; set; }
 
     public virtual Loan? IdLoanNavigation { get; set; }
 

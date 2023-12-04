@@ -1,3 +1,5 @@
+using AnalisisProyecto.Models.DB;
+
 public class UserDto {
     public int Id { get; set; }
     public string UserId { get; set; }
@@ -10,4 +12,6 @@ public class UserDto {
     public int Deleted { get; set; }
     public DateTime CreationDate { get; set; }
     public int? IdLibraryUser { get; set; }
+
+    public virtual ICollection<Privilege>? Privileges { get; set; }
 }

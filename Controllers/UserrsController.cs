@@ -11,6 +11,8 @@ using System.Text.Json;
 using Microsoft.Extensions.Options;
 using BCrypt.Net;
 using AnalisisProyecto.Models.DTO;
+using AnalisisProyecto.Models.Logic;
+using System.Web.Http.Results;
 
 namespace AnalisisProyecto.Controllers {
     [Route("api/[controller]")]
@@ -50,7 +52,7 @@ namespace AnalisisProyecto.Controllers {
                 Career = u.Career != null ? u.Career : string.Empty,
                 Deleted = u.Deleted.GetValueOrDefault(false) ? 1 : 0,
                 CreationDate = u.CreationDate.GetValueOrDefault(DateTime.Now)
-            }).ToList();
+            }).Where(u => u.Deleted == 0).ToList();
 
             Thread.Sleep(1000);
 
@@ -210,21 +212,76 @@ namespace AnalisisProyecto.Controllers {
 
             var userDTO = await _context.Userrs.Where(u => u.UserId == userr.UserId)
                 .Include(l => l.LibraryUsers)
+                .Include(u => u.Role.RolePrivileges)
                 .Select(u => new UserDto {
-                Id = u.Id,
-                UserId = u.UserId != null ? u.UserId : string.Empty,
-                Name = u.Name != null ? u.Name : string.Empty,
-                LastName = u.LastName != null ? u.LastName : string.Empty,
-                Category = u.Category != null ? u.Category : string.Empty,
-                Role = u.Role != null ? u.Role.Name != null ? u.Role.Name : string.Empty : string.Empty,
-                Phone = u.Phone != null ? u.Phone : string.Empty,
-                Career = u.Career != null ? u.Career : string.Empty,
-                Deleted = u.Deleted.GetValueOrDefault(false) ? 1 : 0,
-                IdLibraryUser = u.LibraryUsers.FirstOrDefault().Id,
-                CreationDate = u.CreationDate.GetValueOrDefault(DateTime.Now)
-            }).FirstOrDefaultAsync();
+                    Id = u.Id,
+                    UserId = u.UserId != null ? u.UserId : string.Empty,
+                    Name = u.Name != null ? u.Name : string.Empty,
+                    LastName = u.LastName != null ? u.LastName : string.Empty,
+                    Category = u.Category != null ? u.Category : string.Empty,
+                    Role = u.Role != null ? u.Role.Name != null ? u.Role.Name : string.Empty : string.Empty,
+                    Phone = u.Phone != null ? u.Phone : string.Empty,
+                    Career = u.Career != null ? u.Career : string.Empty,
+                    Deleted = u.Deleted.GetValueOrDefault(false) ? 1 : 0,
+                    IdLibraryUser = u.LibraryUsers.FirstOrDefault().Id,
+                    CreationDate = u.CreationDate.GetValueOrDefault(DateTime.Now),
+                    Privileges = u.Role.RolePrivileges.Select(p => p.Privileges).ToList()
+                }).FirstOrDefaultAsync();
 
             return Ok(userDTO);
+        }
+
+        [HttpPost]
+        [Route("register")]
+        public async Task<ActionResult<UserRegisterDTO>> Register([FromBody] UserRegisterDTO userr) {
+
+            Console.WriteLine(userr.UserId);
+
+            if (userr == null) {
+                return BadRequest("Usuario invalido");
+            }
+
+            var userr2 = await _context.Userrs.FirstOrDefaultAsync(u => u.UserId == userr.UserId);
+
+            if (userr2 != null) {
+                return BadRequest("Usuario existente");
+            }
+
+            var user = new Userr {
+                UserId = userr.UserId,
+                Category = "Estudiante",//Estudiante por defecto
+                Name = userr.UserName,
+                LastName = userr.UserLastName,
+                RoleId = 1,//Estudiante por defecto
+                Phone = userr.UserPhone,
+                Career = userr.UserCareer,
+                CreationDate = DateTime.Now,
+                Password = BCrypt.Net.BCrypt.HashPassword(userr.UserPass),
+                Deleted = false
+            };
+
+            _context.Userrs.Add(user);
+            await _context.SaveChangesAsync();
+
+            return Ok(user.Id);
+        }
+
+        [HttpPost]
+        [Route("newLog")]
+        public async Task<ActionResult<Log>> NewLog([FromBody] Log log) {
+
+            if (log == null) {
+                return BadRequest("Log invalido");
+            }
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "Userr.log");
+
+            if (log.isError) {
+                Logger.LogError(filePath, log.Message);
+            } else {
+                Logger.LogInfo(filePath, log.Message);
+            }
+
+            return Ok();
         }
 
         private bool UserrExists(int id) {
