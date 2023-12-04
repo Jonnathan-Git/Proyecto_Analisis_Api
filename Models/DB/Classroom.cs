@@ -9,11 +9,11 @@ public partial class Classroom
 
     public string? Type { get; set; }
 
-    public string? Requirements { get; set; }
-
     public int? Quantity { get; set; }
 
     public string? Numeration { get; set; }
+
+    public string? Description { get; set; }
 
     public virtual ICollection<ClassroomSchedule> ClassroomSchedules { get; set; } = new List<ClassroomSchedule>();
 
