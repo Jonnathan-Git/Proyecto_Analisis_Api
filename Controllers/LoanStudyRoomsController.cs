@@ -37,7 +37,7 @@ namespace AnalisisProyecto.Controllers
                 //Consulta de Loan por id -- 
                 Loan loan = await _context.Loans.FindAsync(item.LoanId);
                 LoanAndStudyRoom lv = new LoanAndStudyRoom(item.Id,item.NumberOfPeople,item.LoanId, 
-                    item.IdUserLibrary, item.StudyRoomId,item.ReturnHour, item.ExitHour, item.Active, loan.StartDate, loan.EndDate);
+                    item.IdUserLibrary, item.StudyRoomId,item.ReturnHour, item.ExitHour, item.Active, loan.StartDate, loan.EndDate, item.State);
                 Console.WriteLine(lv.Id);
                 lista_items.Add(lv);
             }
@@ -66,7 +66,7 @@ namespace AnalisisProyecto.Controllers
                 LoanAndStudyRoom lv = new LoanAndStudyRoom(
                     item.Id, item.NumberOfPeople, item.LoanId,
                     item.IdUserLibrary, item.StudyRoomId, item.ReturnHour,
-                    item.ExitHour, item.Active, loan.StartDate, loan.EndDate);
+                    item.ExitHour, item.Active, loan.StartDate, loan.EndDate, item.State);
 
                 Console.WriteLine(lv.Id);
                 result.Add(lv);

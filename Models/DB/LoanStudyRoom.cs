@@ -19,6 +19,7 @@ public partial class LoanStudyRoom
     public int? IdUserLibrary { get; set; }
 
     public int? StudyRoomId { get; set; }
+    public string? State { get; set; }
 
     [JsonIgnore]
     public virtual LibraryUser? IdUserLibraryNavigation { get; set; }
