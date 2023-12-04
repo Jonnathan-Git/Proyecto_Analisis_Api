@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using AnalisisProyecto.Models.DB;
+using AnalisisProyecto.Models.DTO;
 
 namespace AnalisisProyecto.Controllers
 {
@@ -23,14 +24,57 @@ namespace AnalisisProyecto.Controllers
         // GET: api/LoanStudyRooms
         [HttpGet]
         [Route("getAll")]
-        public async Task<ActionResult<IEnumerable<LoanStudyRoom>>> GetLoanStudyRooms()
+        public async Task<ActionResult<IEnumerable<LoanAndStudyRoom>>> GetLoanStudyRooms()
         {
           if (_context.LoanStudyRooms == null)
           {
               return NotFound();
           }
-            return await _context.LoanStudyRooms.ToListAsync();
+            List<LoanStudyRoom> lista = await _context.LoanStudyRooms.ToListAsync();
+            List<LoanAndStudyRoom> lista_items = new List<LoanAndStudyRoom>();
+            foreach (var item in lista)
+            {
+                //Consulta de Loan por id -- 
+                Loan loan = await _context.Loans.FindAsync(item.LoanId);
+                LoanAndStudyRoom lv = new LoanAndStudyRoom(item.Id,item.NumberOfPeople,item.LoanId, 
+                    item.IdUserLibrary, item.StudyRoomId,item.ReturnHour, item.ExitHour, item.Active, loan.StartDate, loan.EndDate);
+                Console.WriteLine(lv.Id);
+                lista_items.Add(lv);
+            }
+            return lista_items;
         }
+
+
+        [HttpGet]
+        [Route("getLoanStudyRoomUser/{id}")]
+        public async Task<ActionResult<IEnumerable<LoanAndStudyRoom>>> GetLoanStudyRoomsUser(int id)
+        {
+            var userLoanStudyRooms = await _context.LoanStudyRooms
+                .Where(lsr => lsr.IdUserLibrary == id)
+                .ToListAsync();
+
+            if (userLoanStudyRooms == null || userLoanStudyRooms.Count == 0)
+            {
+                return Ok();
+            }
+
+            var result = new List<LoanAndStudyRoom>();
+            foreach (var item in userLoanStudyRooms)
+            {
+                Loan loan = await _context.Loans.FindAsync(item.LoanId);
+
+                LoanAndStudyRoom lv = new LoanAndStudyRoom(
+                    item.Id, item.NumberOfPeople, item.LoanId,
+                    item.IdUserLibrary, item.StudyRoomId, item.ReturnHour,
+                    item.ExitHour, item.Active, loan.StartDate, loan.EndDate);
+
+                Console.WriteLine(lv.Id);
+                result.Add(lv);
+            }
+
+            return result;
+        }
+
 
         // GET: api/LoanStudyRooms/5
         [HttpGet]
@@ -95,9 +139,11 @@ namespace AnalisisProyecto.Controllers
               return Problem("Entity set 'AnalisisProyectoContext.LoanStudyRooms'  is null.");
           }
             _context.LoanStudyRooms.Add(loanStudyRoom);
+            Console.WriteLine("Id:  "+loanStudyRoom.LoanId);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetLoanStudyRoom", new { id = loanStudyRoom.Id }, loanStudyRoom);
+          
+            return NoContent(); 
         }
 
         // DELETE: api/LoanStudyRooms/5
