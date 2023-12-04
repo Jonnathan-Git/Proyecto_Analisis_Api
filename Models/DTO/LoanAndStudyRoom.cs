@@ -24,8 +24,9 @@ namespace AnalisisProyecto.Models.DTO
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
+        public string? State { get; set; }
 
-        public LoanAndStudyRoom(int id, int? numberOfPeople, int? loanId, int? idUserLibrary, int? studyRoomId, string? returnHour, string? exitHour, bool active, DateTime? startDate, DateTime? endDate)
+        public LoanAndStudyRoom(int id, int? numberOfPeople, int? loanId, int? idUserLibrary, int? studyRoomId, string? returnHour, string? exitHour, bool active, DateTime? startDate, DateTime? endDate, string? state)
         {
             Id = id;
             NumberOfPeople = numberOfPeople;
@@ -37,6 +38,7 @@ namespace AnalisisProyecto.Models.DTO
             Active = active;
             StartDate = startDate;
             EndDate = endDate;
+            State = state;
         }
     }
 }

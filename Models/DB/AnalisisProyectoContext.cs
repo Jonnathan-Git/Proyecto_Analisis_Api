@@ -530,7 +530,10 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.Property(e => e.ReturnHour).HasColumnName("return_hour");
             entity.Property(e => e.ExitHour).HasColumnName("exit_hour");
             entity.Property(e => e.StudyRoomId).HasColumnName("study_room_id");
-
+            entity.Property(e => e.State)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("state");
             entity.HasOne(d => d.IdUserLibraryNavigation).WithMany(p => p.LoanStudyRooms)
                 .HasForeignKey(d => d.IdUserLibrary)
                 .HasConstraintName("FK__loan_stud__id_us__5535A963");
