@@ -44,6 +44,38 @@ namespace AnalisisProyecto.Controllers
             return lista_items;
         }
 
+
+        [HttpGet]
+        [Route("getLoanStudyRoomUser/{id}")]
+        public async Task<ActionResult<IEnumerable<LoanAndStudyRoom>>> GetLoanStudyRoomsUser(int id)
+        {
+            var userLoanStudyRooms = await _context.LoanStudyRooms
+                .Where(lsr => lsr.IdUserLibrary == id)
+                .ToListAsync();
+
+            if (userLoanStudyRooms == null || userLoanStudyRooms.Count == 0)
+            {
+                return Ok();
+            }
+
+            var result = new List<LoanAndStudyRoom>();
+            foreach (var item in userLoanStudyRooms)
+            {
+                Loan loan = await _context.Loans.FindAsync(item.LoanId);
+
+                LoanAndStudyRoom lv = new LoanAndStudyRoom(
+                    item.Id, item.NumberOfPeople, item.LoanId,
+                    item.IdUserLibrary, item.StudyRoomId, item.ReturnHour,
+                    item.ExitHour, item.Active, loan.StartDate, loan.EndDate);
+
+                Console.WriteLine(lv.Id);
+                result.Add(lv);
+            }
+
+            return result;
+        }
+
+
         // GET: api/LoanStudyRooms/5
         [HttpGet]
         [Route("getLoanStudyRoom/{id}")]

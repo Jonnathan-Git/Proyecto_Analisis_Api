@@ -43,6 +43,36 @@ namespace AnalisisProyecto.Controllers
             }
             return lista_items;
         }
+        [HttpGet]
+        [Route("getLoanVehicleUser/{id}")]
+        public async Task<ActionResult<IEnumerable<LoanAndVehicle>>> GetLoanVehiclesUser(int id)
+        {
+            var userLoanVehicles = await _context.LoanVehicles
+                .Where(lv => lv.IdUser == id)
+                .ToListAsync();
+
+            if (userLoanVehicles == null || userLoanVehicles.Count == 0)
+            {
+                return Ok();
+            }
+
+            var result = new List<LoanAndVehicle>();
+            foreach (var item in userLoanVehicles)
+            {
+                Loan loan = await _context.Loans.FindAsync(item.IdLoan);
+
+                LoanAndVehicle lv = new LoanAndVehicle(
+                    item.Id, item.IdLoan, item.IdUser, item.ActivityType, item.Responsible,
+                    item.State, item.Destination, item.StartingPlace, item.ExitHour,
+                    item.ReturnHour, item.PersonQuantity, item.UnityOrCarrer, item.AssignedVehicle,
+                    item.Active, loan.StartDate, loan.EndDate);
+
+                Console.WriteLine(lv.Id);
+                result.Add(lv);
+            }
+
+            return result;
+        }
 
         // GET: api/LoanVehicles/5
         [HttpGet]
