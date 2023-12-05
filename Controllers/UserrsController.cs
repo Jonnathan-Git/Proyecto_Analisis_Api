@@ -11,6 +11,8 @@ using System.Text.Json;
 using Microsoft.Extensions.Options;
 using BCrypt.Net;
 using AnalisisProyecto.Models.DTO;
+using AnalisisProyecto.Models.Logic;
+using System.Web.Http.Results;
 
 namespace AnalisisProyecto.Controllers {
     [Route("api/[controller]")]
@@ -50,7 +52,7 @@ namespace AnalisisProyecto.Controllers {
                 Career = u.Career != null ? u.Career : string.Empty,
                 Deleted = u.Deleted.GetValueOrDefault(false) ? 1 : 0,
                 CreationDate = u.CreationDate.GetValueOrDefault(DateTime.Now)
-            }).ToList();
+            }).Where(u => u.Deleted == 0).ToList();
 
             Thread.Sleep(1000);
 
@@ -210,6 +212,7 @@ namespace AnalisisProyecto.Controllers {
 
             var userDTO = await _context.Userrs.Where(u => u.UserId == userr.UserId)
                 .Include(l => l.LibraryUsers)
+                .Include(u => u.Role.RolePrivileges)
                 .Select(u => new UserDto {
                     Id = u.Id,
                     UserId = u.UserId != null ? u.UserId : string.Empty,
@@ -221,7 +224,8 @@ namespace AnalisisProyecto.Controllers {
                     Career = u.Career != null ? u.Career : string.Empty,
                     Deleted = u.Deleted.GetValueOrDefault(false) ? 1 : 0,
                     IdLibraryUser = u.LibraryUsers.FirstOrDefault().Id,
-                    CreationDate = u.CreationDate.GetValueOrDefault(DateTime.Now)
+                    CreationDate = u.CreationDate.GetValueOrDefault(DateTime.Now),
+                    Privileges = u.Role.RolePrivileges.Select(p => p.Privileges).ToList()
                 }).FirstOrDefaultAsync();
 
             return Ok(userDTO);
@@ -229,7 +233,7 @@ namespace AnalisisProyecto.Controllers {
 
         [HttpPost]
         [Route("register")]
-        public async Task<ActionResult<UserRegisterDTO>> Register([FromBody]UserRegisterDTO userr) {
+        public async Task<ActionResult<UserRegisterDTO>> Register([FromBody] UserRegisterDTO userr) {
 
             Console.WriteLine(userr.UserId);
 
@@ -260,6 +264,24 @@ namespace AnalisisProyecto.Controllers {
             await _context.SaveChangesAsync();
 
             return Ok(user.Id);
+        }
+
+        [HttpPost]
+        [Route("newLog")]
+        public async Task<ActionResult<Log>> NewLog([FromBody] Log log) {
+
+            if (log == null) {
+                return BadRequest("Log invalido");
+            }
+            string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs", "Userr.log");
+
+            if (log.isError) {
+                Logger.LogError(filePath, log.Message);
+            } else {
+                Logger.LogInfo(filePath, log.Message);
+            }
+
+            return Ok();
         }
 
         private bool UserrExists(int id) {

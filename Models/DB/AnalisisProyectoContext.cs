@@ -26,8 +26,6 @@ public partial class AnalisisProyectoContext : DbContext {
 
     public virtual DbSet<Inventory> Inventories { get; set; }
 
-    public virtual DbSet<InventoryType> InventoryTypes { get; set; }
-
     public virtual DbSet<LibraryUser> LibraryUsers { get; set; }
 
     public virtual DbSet<Loan> Loans { get; set; }
@@ -92,8 +90,7 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasConstraintName("FK__area__inventory___5165187F");
         });
 
-        modelBuilder.Entity<Classroom>(entity =>
-        {
+        modelBuilder.Entity<Classroom>(entity => {
             entity.HasKey(e => e.Id).HasName("PK__classroo__3213E83F5D82BCDE");
 
             entity.ToTable("classrooms");
@@ -260,24 +257,13 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("description");
-            entity.Property(e => e.Units).HasColumnName("units");
-        });
-
-        modelBuilder.Entity<InventoryType>(entity => {
-            entity.HasKey(e => e.Id).HasName("PK__inventor__3213E83FCC7DC832");
-
-            entity.ToTable("inventory_type");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.InventoryId).HasColumnName("inventory_id");
             entity.Property(e => e.Type)
-                .HasMaxLength(255)
+            .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("type");
-
-            entity.HasOne(d => d.Inventory).WithMany(p => p.InventoryTypes)
-                .HasForeignKey(d => d.InventoryId)
-                .HasConstraintName("FK__inventory__inven__4E88ABD4");
+            entity.Property(e => e.deleted)
+                .HasColumnName("deleted");
+            entity.Property(e => e.Units).HasColumnName("units");
         });
 
         modelBuilder.Entity<LibraryUser>(entity => {
@@ -405,8 +391,7 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasConstraintName("FK__loan_book__id_us__5EBF139D");
         });
 
-        modelBuilder.Entity<LoanClassroom>(entity =>
-        {
+        modelBuilder.Entity<LoanClassroom>(entity => {
             entity.HasKey(e => e.Id).HasName("PK__loan_cla__3213E83F415CDD20");
 
             entity.ToTable("loan_classrooms");
@@ -538,13 +523,17 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.ToTable("loan_study_room");
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.EndTime).HasColumnName("end_time");
+          
             entity.Property(e => e.IdUserLibrary).HasColumnName("id_user_library");
             entity.Property(e => e.LoanId).HasColumnName("loan_id");
             entity.Property(e => e.NumberOfPeople).HasColumnName("number_of_people");
-            entity.Property(e => e.StartTime).HasColumnName("start_time");
+            entity.Property(e => e.ReturnHour).HasColumnName("return_hour");
+            entity.Property(e => e.ExitHour).HasColumnName("exit_hour");
             entity.Property(e => e.StudyRoomId).HasColumnName("study_room_id");
-
+            entity.Property(e => e.State)
+                .HasMaxLength(255)
+                .IsUnicode(false)
+                .HasColumnName("state");
             entity.HasOne(d => d.IdUserLibraryNavigation).WithMany(p => p.LoanStudyRooms)
                 .HasForeignKey(d => d.IdUserLibrary)
                 .HasConstraintName("FK__loan_stud__id_us__5535A963");
@@ -574,17 +563,17 @@ public partial class AnalisisProyectoContext : DbContext {
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("destination");
-        
+
             entity.Property(e => e.ExitHour).HasColumnName("exit_hour");
             entity.Property(e => e.IdLoan).HasColumnName("id_loan");
             entity.Property(e => e.IdUser).HasColumnName("id_user");
             entity.Property(e => e.PersonQuantity).HasColumnName("person_quantity");
-       
+
             entity.Property(e => e.Responsible)
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("responsible");
-           
+
             entity.Property(e => e.ReturnHour).HasColumnName("return_hour");
             entity.Property(e => e.StartingPlace)
                 .HasMaxLength(255)
@@ -776,13 +765,13 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.Property(e => e.IdStudyRoom).HasColumnName("id_study_room");
             entity.Property(e => e.StartHour).HasMaxLength(5).HasColumnName("start_hour");
 
-           entity.HasOne(d => d.IdStudyRoomNavigation).WithMany(p => p.StudyRoomSchedules)
-                .HasForeignKey(d => d.IdStudyRoom)
-                .HasConstraintName("FK__study_roo__id_st__5BE2A6F2");
+            entity.HasOne(d => d.IdStudyRoomNavigation).WithMany(p => p.StudyRoomSchedules)
+                 .HasForeignKey(d => d.IdStudyRoom)
+                 .HasConstraintName("FK__study_roo__id_st__5BE2A6F2");
             entity.Property(e => e.Active).HasColumnName("active");
 
         });
-       
+
 
         modelBuilder.Entity<Title>(entity => {
             entity.HasKey(e => e.Id).HasName("PK__titles__3213E83F1E7D6FF8");

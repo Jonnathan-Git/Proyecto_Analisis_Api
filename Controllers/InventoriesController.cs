@@ -24,7 +24,7 @@ namespace AnalisisProyecto.Controllers {
             if (_context.Inventories == null) {
                 return NotFound();
             }
-            return await _context.Inventories.ToListAsync();
+            return await _context.Inventories.Where(u => u.deleted == false).ToListAsync();
         }
 
         // GET: api/Inventories/5
@@ -44,10 +44,9 @@ namespace AnalisisProyecto.Controllers {
         }
 
         // PUT: api/Inventories/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut]
         [Route("updateInventory/")]
-        public async Task<IActionResult> PutInventory(Inventory inventory) {  
+        public async Task<IActionResult> PutInventory(Inventory inventory) {
 
             _context.Entry(inventory).State = EntityState.Modified;
 
@@ -65,13 +64,15 @@ namespace AnalisisProyecto.Controllers {
         }
 
         // POST: api/Inventories
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         [Route("createInventory")]
         public async Task<ActionResult<Inventory>> PostInventory(Inventory inventory) {
             if (_context.Inventories == null) {
                 return Problem("Entity set 'AnalisisProyectoContext.Inventories'  is null.");
             }
+
+            if (inventory == null) return BadRequest("Inventory is null.");
+
             _context.Inventories.Add(inventory);
             await _context.SaveChangesAsync();
 
@@ -90,8 +91,22 @@ namespace AnalisisProyecto.Controllers {
                 return NotFound();
             }
 
-            _context.Inventories.Remove(inventory);
-            await _context.SaveChangesAsync();
+            inventory.deleted = true;
+
+            _context.Entry(inventory).State = EntityState.Modified;
+
+            try {
+                await _context.SaveChangesAsync();
+            } catch (DbUpdateConcurrencyException) {
+                if (!InventoryExists(inventory.Id)) {
+                    return NotFound();
+                } else {
+                    throw;
+                }
+            }
+
+            //_context.Inventories.Remove(inventory);
+            //await _context.SaveChangesAsync();
 
             return NoContent();
         }
