@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AnalisisProyecto.Models.DB;
 
@@ -23,7 +24,9 @@ public partial class ReturnComputerEquipment
 
     public virtual LibraryUser? IdLibraryUserNavigation { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<SanctionComputerEquipment> SanctionComputerEquipments { get; set; } = new List<SanctionComputerEquipment>();
 
+    [JsonIgnore]
     public virtual ICollection<SanctionsReport> SanctionsReports { get; set; } = new List<SanctionsReport>();
 }

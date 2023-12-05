@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace AnalisisProyecto.Models.DB;
 
@@ -15,7 +16,9 @@ public partial class SanctionComputerEquipment
 
     public DateTime? SanctionExpiration { get; set; }
 
+    [JsonIgnore]
     public virtual ReturnComputerEquipment? IdReturnComputerEquipmentNavigation { get; set; }
-
+    
+    [JsonIgnore]
     public virtual ICollection<SanctionsReport> SanctionsReports { get; set; } = new List<SanctionsReport>();
 }
