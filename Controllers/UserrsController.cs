@@ -118,6 +118,7 @@ namespace AnalisisProyecto.Controllers {
             existingUserr.RoleId = userr.RoleId;
             existingUserr.Phone = userr.Phone;
             existingUserr.Career = userr.Career;
+            existingUserr.Category = userr.Category;
 
             if (!string.IsNullOrEmpty(userr.Password)) {
                 existingUserr.Password = BCrypt.Net.BCrypt.HashPassword(userr.Password);
