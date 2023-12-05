@@ -48,37 +48,21 @@ namespace AnalisisProyecto.Controllers
 
             return loanField;
         }
-
-        // PUT: api/LoanFields/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutLoanField(int id, LoanField loanField)
+        [HttpPut]
+        [Route("update")]
+        public async Task<IActionResult> PutLoanField(LoanField loanField)
         {
-            if (id != loanField.Id)
+            if (_context.LoanFields == null)
             {
-                return BadRequest();
+                return Problem("Entity set 'AnalisisProyectoContext.Titles'  is null.");
             }
-
             _context.Entry(loanField).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!LoanFieldExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+            return CreatedAtAction("GetLoanField", new { id = loanField.Id }, loanField);
 
-            return NoContent();
         }
+       
 
         // POST: api/LoanFields
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -95,25 +79,26 @@ namespace AnalisisProyecto.Controllers
             return CreatedAtAction("GetLoanField", new { id = loanField.Id }, loanField);
         }
 
-        // DELETE: api/LoanFields/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLoanField(int id)
+
+        [HttpDelete]
+        [Route("Delete")]
+        public async Task<IActionResult> DeleteLoanField(LoanField loanField)
         {
             if (_context.LoanFields == null)
             {
                 return NotFound();
             }
-            var loanField = await _context.LoanFields.FindAsync(id);
+            _context.Entry(loanField).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
             if (loanField == null)
             {
                 return NotFound();
             }
 
-            _context.LoanFields.Remove(loanField);
-            await _context.SaveChangesAsync();
-
             return NoContent();
         }
+
 
         private bool LoanFieldExists(int id)
         {

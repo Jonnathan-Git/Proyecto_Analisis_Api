@@ -485,6 +485,12 @@ public partial class AnalisisProyectoContext : DbContext {
             entity.Property(e => e.Inactive).HasColumnName("Inactive");
             entity.Property(e => e.EndHour).HasColumnName("end_hour");
             entity.Property(e => e.StartHour).HasColumnName("start_hour");
+            entity.Property(e => e.Field).HasColumnName("field");
+            entity.Property(e => e.Materials)
+              .HasMaxLength(255)
+              .IsUnicode(false)
+              .HasColumnName("materials");
+
             entity.HasOne(d => d.IdLoanNavigation).WithMany(p => p.LoanFields)
                 .HasForeignKey(d => d.IdLoan)
                 .HasConstraintName("FK__loan_fiel__id_lo__72C60C4A");

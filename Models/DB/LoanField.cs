@@ -19,6 +19,10 @@ public partial class LoanField
 
     public TimeSpan? EndHour { get; set; }
 
+    public bool? Field { get; set; }
+
+    public string? Materials { get; set; }
+
     public virtual Loan? IdLoanNavigation { get; set; }
 
     public virtual Userr? IdUserNavigation { get; set; }
