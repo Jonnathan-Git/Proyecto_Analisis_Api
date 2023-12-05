@@ -53,8 +53,10 @@ namespace AnalisisProyecto.Controllers
 
         // PUT: api/StudyRooms/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut()]
-        [Route ("updateStudyRoom/{id}")]
+
+        [HttpPut]
+        [Route("updateStudyRoom/{id}")]
+
         public async Task<IActionResult> PutStudyRoom(int id, StudyRoom studyRoom)
         {
             if (id != studyRoom.Id)
@@ -86,7 +88,8 @@ namespace AnalisisProyecto.Controllers
         // POST: api/StudyRooms
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        [Route ("createStudyRoom")]
+        [Route("createStudyRoom")]
+
         public async Task<ActionResult<StudyRoom>> PostStudyRoom(StudyRoom studyRoom)
         {
           if (_context.StudyRooms == null)
